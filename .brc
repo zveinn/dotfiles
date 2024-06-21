@@ -1,0 +1,99 @@
+#!/bin/bash
+#
+export GOROOT=/usr/local/go
+export GOPATH=$GOROOT
+export PATH=$PATH:$GOROOT/bin
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+shopt -s expand_aliases
+alias ..="cd .."
+alias ...="cd ..;cd .."
+alias ....="cd ..;cd ..;cd .."
+alias ....="cd ..;cd ..;cd ..;cd .."
+alias ls="ls -laF --color=auto"
+alias lsh="ls -lahF --color=auto"
+alias ns="netstat -tulpn"
+
+alias tn="tmux new -s $1"
+alias ts="tmux source ~/.tmux.conf"
+alias td="tmux detach"
+alias tj="tmux detach;tmux attach -d -t $1"
+alias ta="tmux attach -d -t $1"
+alias tl="tmux ls"
+alias tnw="tmux new-window;tmux rename-window $1"
+
+
+alias v="nvim"
+alias vv="nvim ."
+alias vconfig="v /home/sveinn/.config/nvim"
+alias vmono="v /home/sveinn/go-code/monolith"
+alias vclient="v /home/sveinn/go-code/network-client"
+
+alias cdconfig="cd /home/sveinn/.config/nvim"
+alias cdmono="cd /home/sveinn/go-code/monolith"
+alias cdclient="cd /home/sveinn/go-code/network-client"
+alias cdssh="cd ~/.ssh"
+
+source /home/sveinn/.config/secret/.brc
+
+alias gaa="git add --all"
+alias gca="git commit -am $1"
+alias gp="git push"
+alias gs="git status"
+alias gl="git log"
+alias gb="gBranch"
+gBranch(){
+	git branch $1
+	git checkout $1
+}
+# alias grs="gh repo sync $1 -b master"
+alias grs="syncRepo"
+syncRepo() {
+	gh repo sync "$1" -b "master"
+	echo "do not forget to git pull"
+}
+
+alias reload="source ~/.bashrc"
+
+alias l="lazygit"
+
+alias d='docker'
+alias ds='docker start'
+alias dst='docker stop'
+alias dr='docker run'
+alias drm='docker remove'
+alias dps='docker ps --all'
+alias di='docker images'
+alias drmi='docker rmi'
+alias dl='docker logs'
+
+alias k="kubectl"
+alias kg="kubectl get"
+alias ks="kubectl get pod,svc -n kube-system"
+ka(){
+	echo "KIND NETWORK"
+	docker network inspect -f '{{.IPAM.Config}}' kind
+	echo "NODES"
+	echo "=============================================================="
+	echo ""
+	kubectl get nodes
+	echo "=============================================================="
+	echo ""
+	echo "PODS/SERVICES >>> NAMESPACE: kube-system"
+	echo "=============================================================="
+	kubectl get pod,svc -n kube-system
+	echo "=============================================================="
+	echo ""
+	echo "PODS/SERVICES >>> NAMESPACE: default"
+	echo "=============================================================="
+	kubectl get pod,svc -n default
+	echo "=============================================================="
+	echo ""
+	echo "PODS/SERVICES >>> NAMESPACE: minio-operator"
+	echo "=============================================================="
+	kubectl get pod,svc -n minio-operator
+	echo "=============================================================="
+}

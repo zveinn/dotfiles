@@ -1,0 +1,12 @@
+#!/bin/bash
+alias ls="ls -laF --color=auto"
+alias lsh="ls -lahF --color=auto"
+alias ..="cd .."
+alias ...="cd ..;cd .."
+alias ....="cd ..;cd ..;cd .."
+alias v="nvim"
+alias gaa="git add --all"
+alias gca="git commit -am $1"
+alias gp="git push"
+alias gs="gis status"
+alias gl="git log"
