@@ -11,7 +11,6 @@ vim.keymap.set('n', '<A-o>', ':w<cr> :q<cr>')
 vim.keymap.set('n', '<A-del>', ':wqa<cr>')
 -- vim.keymap.set('n', '<A-o>', ':w<cr> :bw<cr>')
 -- vim.keymap.set('n', '<A-.>', ':NvimTreeToggle<cr>')
-vim.keymap.set('n', '<A-z>', '')
 
 vim.keymap.set('n', '<S-L>', '<C-w>l')
 vim.keymap.set('n', '<S-H>', '<C-w>h')
@@ -24,13 +23,15 @@ vim.keymap.set('n', '<S-K>', '<C-w>k')
 vim.keymap.set('n', '<A-j>', '<C-d>')
 vim.keymap.set('n', '<A-k>', '<C-u>')
 
-vim.keymap.set('n', '<A-z>', ':SplitjoinJoin<cr>')
-vim.keymap.set('n', '<A-x>', ':SplitjoinSplit<cr>')
+vim.keymap.set({ 'n', 'i' }, '<C-x>', '')
+vim.keymap.set({ 'n', 'i' }, '<A-z>', '')
+vim.keymap.set({ 'n', "i" }, "<A-s>", '')
+vim.keymap.set({ 'n', "i" }, "<A-x>", '')
+
 vim.keymap.set('n', 'U', '<C-r>')
 vim.keymap.set('n', '<A-;>', ':split<cr> <C-w>j')
 vim.keymap.set('n', "<A-'>", ':vsplit<cr> <C"-w>j')
 -- KEEP A-s empty until I stop using it on reflex
-vim.keymap.set({ 'n', "i" }, "<A-s>", '')
 
 
 -- vim.keymap.set({ 'n', 'i' }, '<A-s>', '<esc> :w<cr> :!goimports -w % <cr><cr>') -- Source config

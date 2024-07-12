@@ -7,7 +7,7 @@ local config = {
 	hide_tab_bar_if_only_one_tab = true,
 	font_size = 12,
 	window_padding = { left = 0, right = 0, top = 0, bottom = 0 },
-	window_background_opacity = 0.85,
+	window_background_opacity = 1,
 	-- foreground_text_hsb = {
 	-- 	hue = 1,
 	-- 	saturation = 1,

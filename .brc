@@ -9,6 +9,10 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 shopt -s expand_aliases
+alias s="sudo askpass sveinn"
+alias r="source ~/.bashrc"
+alias c="clear"
+alias e="exit"
 alias ..="cd .."
 alias ...="cd ..;cd .."
 alias ....="cd ..;cd ..;cd .."
@@ -56,7 +60,6 @@ syncRepo() {
 	echo "do not forget to git pull"
 }
 
-alias reload="source ~/.bashrc"
 
 alias l="lazygit"
 

@@ -41,7 +41,6 @@ return require("packer").startup(function()
 		branch = "0.1.x",
 	}
 	-- use { "lukas-reineke/indent-blankline.nvim" }
-	use { "AndrewRadev/splitjoin.vim" }
 	-- use "lewis6991/gitsigns.nvim"
 	use 'leoluz/nvim-dap-go'
 	use 'mfussenegger/nvim-dap'

@@ -155,6 +155,7 @@ local on_attach2 = function(_, bufnr)
 	end
 
 	nmap('<A-c>', vim.lsp.buf.code_action, '[C]ode [A]ction')
+	nmap('<A-v>', vim.lsp.buf.rename, '[R]e[n]ame')
 	nmap('<A-r>', vim.lsp.buf.rename, '[R]e[n]ame')
 	nmap('<A-w>', vim.lsp.buf.hover, 'Hover Documentation')
 	nmap('<A-q>', vim.lsp.buf.signature_help, 'Signature Documentation')

@@ -189,11 +189,6 @@ _G.packer_plugins = {
     path = "/home/sveinn/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
   },
-  ["splitjoin.vim"] = {
-    loaded = true,
-    path = "/home/sveinn/.local/share/nvim/site/pack/packer/start/splitjoin.vim",
-    url = "https://github.com/AndrewRadev/splitjoin.vim"
-  },
   ["telescope-fzf-native.nvim"] = {
     loaded = true,
     path = "/home/sveinn/.local/share/nvim/site/pack/packer/start/telescope-fzf-native.nvim",
