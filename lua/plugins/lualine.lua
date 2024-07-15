@@ -62,6 +62,7 @@ local config = {
 		lualine_z = {},
 		lualine_c = {},
 		lualine_x = {},
+		lualine_h = {},
 	},
 }
 
@@ -165,6 +166,12 @@ ins_left {
 	icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
 	color = { fg = colors.green, gui = 'bold' },
 	cond = conditions.hide_in_width,
+}
+
+
+ins_right {
+	'datetime',
+	color = { fg = colors.magenta, gui = 'bold' },
 }
 
 
