@@ -168,6 +168,13 @@ ins_left {
 	cond = conditions.hide_in_width,
 }
 
+ins_right {
+	function()
+		-- return os.execute("echo hello")
+		return "my startup(free trial) >> www.nicelandvpn.com"
+	end,
+	color = { fg = colors.magenta, gui = 'bold' },
+}
 
 ins_right {
 	'datetime',

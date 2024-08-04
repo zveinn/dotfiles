@@ -28,9 +28,6 @@ vim.keymap.set('n', '<S-f>', '<C-v>')
 vim.keymap.set('n', '<A-j>', '<C-d>')
 vim.keymap.set('n', '<A-k>', '<C-u>')
 
--- vim.keymap.set('n', '<A-z>', ':SplitjoinJoin<cr>')
-vim.keymap.set('n', '<C-x>', ':SplitjoinJoin<cr>')
-vim.keymap.set('n', '<A-x>', ':SplitjoinSplit<cr>')
 vim.keymap.set('n', 'U', '<C-r>')
 vim.keymap.set('n', '<A-;>', ':split<cr> <C-w>j')
 

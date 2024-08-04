@@ -33,11 +33,11 @@ alias tnw="tmux new-window;tmux rename-window $1"
 alias v="nvim"
 alias vv="nvim ."
 alias vconfig="v /home/sveinn/.config/nvim"
-alias vmono="v /home/sveinn/go-code/monolith"
+alias vmono="v /home/sveinn/go-code/monorepo"
 alias vclient="v /home/sveinn/go-code/network-client"
 
 alias cdconfig="cd /home/sveinn/.config/nvim"
-alias cdmono="cd /home/sveinn/go-code/monolith"
+alias cdmono="cd /home/sveinn/go-code/monorepo"
 alias cdclient="cd /home/sveinn/go-code/network-client"
 alias cdssh="cd ~/.ssh"
 

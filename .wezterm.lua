@@ -3,6 +3,7 @@ local wezterm = require 'wezterm';
 local config = {
 	default_prog = { 'bash' },
 	color_scheme = 'One Dark (Gogh)',
+	disable_default_key_bindings = false,
 	-- window_decorations = "NONE",
 	hide_tab_bar_if_only_one_tab = true,
 	font_size = 12,
@@ -17,6 +18,21 @@ local config = {
 };
 
 config.keys = {
+	{
+		key = '=',
+		mods = 'CTRL',
+		action = wezterm.action("IncreaseFontSize"),
+	},
+	{
+		key = '-',
+		mods = 'CTRL',
+		action = wezterm.action("DecreaseFontSize"),
+	},
+	{
+		key = 'Enter',
+		mods = 'ALT',
+		action = wezterm.action("ToggleFullScreen"),
+	},
 	{
 		key = 'v',
 		mods = 'CTRL',

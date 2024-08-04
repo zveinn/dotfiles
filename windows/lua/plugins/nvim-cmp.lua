@@ -177,7 +177,7 @@ local on_attach2 = function(_, bufnr)
 
 	--	requires vim.opt.splitright = true
 	nmap('<C-p>', vim.lsp.buf.definition, '[G]oto [D]efinition')
-	nmap('<A-p>', ':vsp<cr> :lua vim.lsp.buf.definition()<CR><CR>zz', '[G]oto [D]efinition')
+	nmap('<leader>p', ':vsp<cr> :lua vim.lsp.buf.definition()<CR><CR>zz', '[G]oto [D]efinition')
 	--nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
 
 	-- nmap('<A-[>', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')

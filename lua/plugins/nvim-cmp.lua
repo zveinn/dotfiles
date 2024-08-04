@@ -71,11 +71,20 @@ cmp.setup {
 		-- 	elseif luasnip.locally_jumpable(-1) then
 		-- 		luasnip.jump(-1)
 		-- 	else
-		-- 		fallback()
+		-- 		fprev_iteprev_iteprev_item()
 		-- 	end
 		-- end, { 'i', 's' }),
+		['<C-k>'] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				cmp.select_prev_item()
+			elseif luasnip.locally_jumpable(1) then
+				luasnip.jump(1)
+			else
+				fallback()
+			end
+		end, { 'i', 's' }),
 
-		['<Tab>'] = cmp.mapping(function(fallback)
+		['<C-j>'] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_next_item()
 			elseif luasnip.locally_jumpable(1) then
@@ -115,18 +124,23 @@ cmp.setup {
 local s = luasnip.snippet
 local t = luasnip.text_node
 local i = luasnip.insert_node
-luasnip.add_snippets("all", {
+luasnip.add_snippets("go", {
+	s("ra", {
+		t({ "for i,v := range " }), i(1), t({ " {", "\t", "}" }),
+	})
+})
+luasnip.add_snippets("go", {
+	s("sel", {
+		t({ "select " }), i(1), t({ " {", 'case :', "default:", "}" }),
+	})
+})
+luasnip.add_snippets("go", {
 	s("s", {
 		t({ "type " }), i(1), t({ " struct {", "\t", "}" }),
 	})
 })
-luasnip.add_snippets("all", {
+luasnip.add_snippets("go", {
 	s("e", {
-		t({ "if err != nil {", '\treturn err', "}" }),
-	})
-})
-luasnip.add_snippets("all", {
-	s("eee", {
 		t({ "if err != nil {", '\treturn err', "}" }),
 	})
 })
@@ -154,15 +168,16 @@ local on_attach2 = function(_, bufnr)
 		vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
 	end
 
-	nmap('<A-c>', vim.lsp.buf.code_action, '[C]ode [A]ction')
-	nmap('<A-v>', vim.lsp.buf.rename, '[R]e[n]ame')
-	nmap('<A-r>', vim.lsp.buf.rename, '[R]e[n]ame')
-	nmap('<A-w>', vim.lsp.buf.hover, 'Hover Documentation')
-	nmap('<A-q>', vim.lsp.buf.signature_help, 'Signature Documentation')
+	vim.keymap.set({ 'n', 'v' }, '<S-c>', vim.lsp.buf.code_action)
+	vim.keymap.set({ 'n', 'v' }, 'r', vim.lsp.buf.rename)
+
+	vim.keymap.set({ 'n', 'v' }, 'q', vim.lsp.buf.signature_help)
+	vim.keymap.set({ 'n', 'v' }, '<S-q>', vim.lsp.buf.hover)
+
 
 	--	requires vim.opt.splitright = true
-	nmap('<A-0>', vim.lsp.buf.definition, '[G]oto [D]efinition')
-	nmap('<A-p>', ':vsp<cr> :lua vim.lsp.buf.definition()<CR><CR>zz', '[G]oto [D]efinition')
+	nmap('<C-m>', vim.lsp.buf.definition, '[G]oto [D]efinition')
+	nmap('m', ':vsp<cr> :lua vim.lsp.buf.definition()<CR><CR>zz', '[G]oto [D]efinition')
 	--nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
 
 
