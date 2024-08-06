@@ -4,6 +4,7 @@
 --vim.keymap.set('n', 'C-q', vim.diagnostic.setloclist)
 vim.keymap.set({ "n", "i", "v" }, '<A-.>', vim.cmd.NvimTreeToggle)
 
+
 local treesitter = require("nvim-treesitter.incremental_selection")
 vim.keymap.set({ "n", "v" }, 'e', function()
 	-- vim.api.nvim_input('<esc>')
@@ -14,7 +15,6 @@ vim.keymap.set({ "n", "v" }, 'e', function()
 	-- treesitter.init_selection()
 	-- treesitter.treesitter_cmd('lua vim.api.nvim_treesitter.incremental_selection.init { scope = "current" }')
 end)
--- vim.keymap.set('n', '<A-9>', '<C-o>zz')
 vim.keymap.set('n', '<A-del>', ':wqa<cr>')
 
 -- vim.keymap.set('n', '<A-o>', ':w<cr> :bw<cr>')
@@ -40,11 +40,12 @@ vim.keymap.set('n', 'U', '<C-r>')
 vim.keymap.set('n', '<C-;>', ':split<cr> <C-w>j')
 vim.keymap.set('n', "<C-'>", ':vsplit<cr> <C"-w>j')
 -- KEEP A-s empty until I stop using it on reflex
-vim.keymap.set('n', '<,>', ':w<cr> :q<cr>')
+vim.keymap.set('n', ',', ':w<cr> :q<cr>')
+
 
 
 -- vim.keymap.set({ 'n', 'i' }, '<A-s>', '<esc> :w<cr> :!goimports -w % <cr><cr>') -- Source config
-vim.keymap.set({ 'n', 'i' }, 'e', '<esc> :w<CR> gE') -- Source config
+vim.keymap.set({ 'n', 'i' }, '<C-e>', '<esc> :w<CR> gE') -- Source config
 --
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
@@ -91,11 +92,11 @@ if not setup then return end
 
 comment.setup({
 	toggler = {
-		line = '<C-/>',
+		line = '<leader>u',
 		-- block = "g",
 	},
 	opleader = {
-		line = "<C-/>",
+		line = "<leader>u",
 		-- block = "g",
 	},
 })
