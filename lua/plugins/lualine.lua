@@ -171,7 +171,7 @@ ins_left {
 ins_right {
 	function()
 		-- return os.execute("echo hello")
-		return "my startup(free trial) >> www.nicelandvpn.com"
+		return ""
 	end,
 	color = { fg = colors.magenta, gui = 'bold' },
 }

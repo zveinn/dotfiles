@@ -51,4 +51,5 @@ vim.g.neovide_cursor_trail_legnth = 0
 vim.g.neovide_cursor_animation_length = 0
 vim.opt.cursorline = true
 -- vim.o.guifont = "Hurmit Nerd Font Mono"
+vim.opt.shell = '/bin/bash -i'
 vim.o.guifont = "Berkeley Mono"
