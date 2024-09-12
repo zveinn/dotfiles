@@ -5,7 +5,30 @@ export GOPATH=$GOROOT
 export PATH=$PATH:$GOROOT/bin
 
 
-export PS1='$(whoami):${PWD/*\//} > '
+# export PS1='$(whoami):${PWD/*\//} > '
+# export PS1='$(whoami):\u001b[32;1m${PWD/*\/}\u001b[0m > '
+# export PS1='$(whoami):\u001b[34m${PWD/*\/}\u001b[0m > '
+# export PS1='$(whoami):\033[34m${PWD/*\/}\033[0m > '
+#  function parse_git_branch() {
+# 	 echo "/"$(git branch 2> /dev/null --show-current) || echo "(no git)"
+# }
+
+function parse_git_branch() {
+  git_branch=$(git branch 2> /dev/null --show-current)
+  if [ $? -eq 0 ]; then
+    echo "$git_branch"
+  else
+    echo ""
+  fi
+}
+
+function get_command_number() {
+  # history | tail -n 1 | awk '{print $1}'
+	 command_num=$(history | tail -n 1 | awk '{print $1}')
+  echo $((command_num + 1))
+}
+
+export PS1='\033[34m!$(get_command_number) \033[0m$(whoami) \033[35m${PWD/*\/} \033[36m$(parse_git_branch)\033[0m\n '
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -27,10 +50,15 @@ alias ns="netstat -tulpn"
 alias tn="tmux new -s $1"
 alias tr="tmux source ~/.tmux.conf"
 alias td="tmux detach"
-alias ts="tmux switch -t $1"
 alias ta="tmux attach -d -t $1"
 alias tl="tmux ls"
 alias tnw="tmux new-window;tmux rename-window $1"
+alias ts="tmux switch -t $1"
+alias tsc="tmux switch -t client"
+alias tsm="tmux switch -t minio"
+alias tsd="tmux switch -t dplz"
+alias tsb="tmux switch -t bluam"
+alias tsmc="tmux switch -t mc"
 
 
 alias v="nvim"
