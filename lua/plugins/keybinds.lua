@@ -20,6 +20,12 @@ vim.keymap.set('n', '<A-del>', ':wqa<cr>')
 -- vim.keymap.set('n', '<A-o>', ':w<cr> :bw<cr>')
 -- vim.keymap.set('n', '<A-.>', ':NvimTreeToggle<cr>')
 
+
+-- C+, and C+. and UNBINDABLE IN NVIM
+vim.keymap.set('n', 'n', ':w<cr> :q<cr>')
+vim.keymap.set('n', '<C-n>', '<C-o>')
+
+
 vim.keymap.set('n', '<S-L>', '<C-w>l')
 vim.keymap.set('n', '<S-H>', '<C-w>h')
 vim.keymap.set('n', '<S-J>', '<C-w>j')
@@ -40,7 +46,6 @@ vim.keymap.set('n', 'U', '<C-r>')
 vim.keymap.set('n', '<C-;>', ':split<cr> <C-w>j')
 vim.keymap.set('n', "<C-'>", ':vsplit<cr> <C"-w>j')
 -- KEEP A-s empty until I stop using it on reflex
-vim.keymap.set('n', ',', ':w<cr> :q<cr>')
 
 
 

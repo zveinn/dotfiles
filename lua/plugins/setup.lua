@@ -40,11 +40,6 @@ return require("packer").startup(function()
 		},
 		branch = "0.1.x",
 	}
-	-- use { "lukas-reineke/indent-blankline.nvim" }
-	-- use "lewis6991/gitsigns.nvim"
-	-- use 'leoluz/nvim-dap-go'
-	-- use 'mfussenegger/nvim-dap'
-	-- use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } }
 
 	use "rhysd/vim-clang-format"
 	use "fatih/vim-go"
