@@ -40,9 +40,9 @@ alias r="source ~/.bashrc"
 alias c="clear"
 alias e="exit"
 alias ..="cd .."
-alias ...="cd ..;cd .."
-alias ....="cd ..;cd ..;cd .."
-alias ....="cd ..;cd ..;cd ..;cd .."
+alias .2="cd ..;cd .."
+alias .3="cd ..;cd ..;cd .."
+alias .4="cd ..;cd ..;cd ..;cd .."
 alias ls="ls -laF --color=auto"
 alias lsh="ls -lahF --color=auto"
 alias ns="netstat -tulpn"
@@ -54,29 +54,33 @@ alias ta="tmux attach -d -t $1"
 alias tl="tmux ls"
 alias tnw="tmux new-window;tmux rename-window $1"
 alias ts="tmux switch -t $1"
-alias tsc="tmux switch -t client"
-alias tsm="tmux switch -t minio"
+alias tsc="tmux switch -t config"
+alias tst="tmux switch -t tunnels"
+alias tsm="tmux switch -t monorepo"
+alias tse="tmux switch -t eos"
 alias tsd="tmux switch -t dplz"
 alias tsb="tmux switch -t bluam"
 alias tsmc="tmux switch -t mc"
+alias tmoveleft="tmux swap-window -t 0"
 
 
 alias v="nvim"
 alias vv="nvim ."
-alias vconfig="v /home/sveinn/.config/nvim"
-alias vmono="v /home/sveinn/go-code/monorepo"
-alias vclient="v /home/sveinn/go-code/network-client"
+alias vc="v /home/sveinn/.config/nvim"
+alias vm="v /home/sveinn/go-code/monorepo"
+alias vtunnels="v /home/sveinn/go-code/tunnels"
 
-alias cdconfig="cd /home/sveinn/.config/nvim"
-alias cdmono="cd /home/sveinn/go-code/monorepo"
-alias cdclient="cd /home/sveinn/go-code/network-client"
+alias cdc="cd /home/sveinn/.config/nvim"
+alias cdm="cd /home/sveinn/go-code/monorepo"
+alias cdt="cd /home/sveinn/go-code/tunnels"
 alias cdssh="cd ~/.ssh"
 
 source /home/sveinn/.config/secret/.brc
 
 alias gaa="git add --all"
 alias gca="git commit -am $1"
-alias gp="git push"
+alias gpush="git push"
+alias gpull="git push"
 alias gs="git status"
 alias gl="git log"
 alias gb="gBranch"
@@ -99,7 +103,8 @@ alias ds='docker start'
 alias dst='docker stop'
 alias dr='docker run'
 alias drm='docker remove'
-alias dps='docker ps --all'
+alias dps='docker ps '
+alias dpsa='docker ps --all'
 alias di='docker images'
 alias drmi='docker rmi'
 alias dl='docker logs'
@@ -131,4 +136,5 @@ ka(){
 	kubectl get pod,svc -n minio-operator
 	echo "=============================================================="
 }
+
 

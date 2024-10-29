@@ -22,8 +22,8 @@ vim.keymap.set('n', '<A-del>', ':wqa<cr>')
 
 
 -- C+, and C+. and UNBINDABLE IN NVIM
-vim.keymap.set('n', 'n', ':w<cr> :q<cr>')
-vim.keymap.set('n', '<C-n>', '<C-o>')
+vim.keymap.set('n', ',', ':w<cr> :q<cr>')
+vim.keymap.set('n', '<C-N>', '<C-O>')
 
 
 vim.keymap.set('n', '<S-L>', '<C-w>l')
