@@ -4,6 +4,8 @@ export GOROOT=/usr/local/go
 export GOPATH=$GOROOT
 export PATH=$PATH:$GOROOT/bin
 
+bind '" ":reverse-search-history'
+
 
 # export PS1='$(whoami):${PWD/*\//} > '
 # export PS1='$(whoami):\u001b[32;1m${PWD/*\/}\u001b[0m > '
@@ -103,7 +105,7 @@ alias ds='docker start'
 alias dst='docker stop'
 alias dr='docker run'
 alias drm='docker remove'
-alias dps='docker ps '
+alias dps='docker ps --all'
 alias dpsa='docker ps --all'
 alias di='docker images'
 alias drmi='docker rmi'

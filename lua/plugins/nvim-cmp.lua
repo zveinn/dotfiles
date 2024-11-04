@@ -102,6 +102,7 @@ cmp.setup {
 		format = lspkind.cmp_format({
 			mode = "symbol",
 			max_width = 200,
+
 			symbol_map = {}
 		})
 	},
@@ -253,6 +254,7 @@ lspconfig['gopls'].setup {
 	on_attach = on_attach2,
 	settings = {
 		gopls = {
+			buildFlags = { "-tags=rdma" },
 			gofumpt = true,
 			analyses = {
 				assign = true,
