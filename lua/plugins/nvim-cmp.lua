@@ -254,7 +254,7 @@ lspconfig['gopls'].setup {
 	on_attach = on_attach2,
 	settings = {
 		gopls = {
-			buildFlags = { "-tags=rdma" },
+			buildFlags = { "-tags=rdmainter" },
 			gofumpt = true,
 			analyses = {
 				assign = true,

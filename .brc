@@ -4,7 +4,7 @@ export GOROOT=/usr/local/go
 export GOPATH=$GOROOT
 export PATH=$PATH:$GOROOT/bin
 
-bind '" ":reverse-search-history'
+bind '"rr":reverse-search-history'
 
 
 # export PS1='$(whoami):${PWD/*\//} > '
@@ -42,9 +42,10 @@ alias r="source ~/.bashrc"
 alias c="clear"
 alias e="exit"
 alias ..="cd .."
-alias .2="cd ..;cd .."
-alias .3="cd ..;cd ..;cd .."
-alias .4="cd ..;cd ..;cd ..;cd .."
+alias ...="cd ..;cd .."
+alias ....="cd ..;cd ..;cd .."
+alias .....="cd ..;cd ..;cd ..;cd .."
+alias ......="cd ..;cd ..;cd ..;cd ..;cd .."
 alias ls="ls -laF --color=auto"
 alias lsh="ls -lahF --color=auto"
 alias ns="netstat -tulpn"
