@@ -50,6 +50,7 @@ alias ls="ls -laF --color=auto"
 alias lsh="ls -lahF --color=auto"
 alias ns="netstat -tulpn"
 
+
 alias tn="tmux new -s $1"
 alias tr="tmux source ~/.tmux.conf"
 alias td="tmux detach"
@@ -87,6 +88,7 @@ alias gpull="git push"
 alias gs="git status"
 alias gl="git log"
 alias gb="gBranch"
+alias gclone='git git@github.com:$1'
 gBranch(){
 	git branch $1
 	git checkout $1
