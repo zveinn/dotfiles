@@ -43,14 +43,15 @@ vim.keymap.set({ 'n', "i" }, "<A-s>", '')
 vim.keymap.set({ 'n', "i" }, "<A-x>", '')
 
 vim.keymap.set('n', 'U', '<C-r>')
-vim.keymap.set('n', '<C-;>', ':split<cr> <C-w>j')
-vim.keymap.set('n', "<C-'>", ':vsplit<cr> <C"-w>j')
+vim.keymap.set('n', '<leader>;', ':split<cr> <C-w>j')
+vim.keymap.set('n', "<leader>'", ':vsplit<cr> <C"-w>j')
 -- KEEP A-s empty until I stop using it on reflex
 
 
 
 -- vim.keymap.set({ 'n', 'i' }, '<A-s>', '<esc> :w<cr> :!goimports -w % <cr><cr>') -- Source config
-vim.keymap.set({ 'n', 'i' }, '<C-e>', '<esc> :w<CR> gE') -- Source config
+-- vim.keymap.set({ 'n', 'i' }, '<C-e>', '<esc> :w<CR> gE') -- Source config
+vim.keymap.set({ 'n' }, '<leader>e', '<esc> :w<CR> gE') -- Source config
 --
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
@@ -59,9 +60,9 @@ pcall(require('telescope').load_extension, 'fzf')
 -- vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
 -- vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
 
-vim.keymap.set('n', '<A-a>', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
-vim.keymap.set('n', '<A-d>', ':lua vim.diagnostic.goto_next()<cr> zz')
-vim.keymap.set('n', '<A-s>', vim.diagnostic.open_float)
+vim.keymap.set('n', '<leader>a', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
+vim.keymap.set('n', '<ledaer>d', ':lua vim.diagnostic.goto_next()<cr> zz')
+vim.keymap.set('n', '<leader>s', vim.diagnostic.open_float)
 
 --vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
 -- vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })

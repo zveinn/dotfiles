@@ -78,6 +78,7 @@ alias cdc="cd /home/sveinn/.config/nvim"
 alias cdm="cd /home/sveinn/go-code/monorepo"
 alias cdt="cd /home/sveinn/go-code/tunnels"
 alias cdssh="cd ~/.ssh"
+alias cdgo="cd /home/sveinn/go-code/"
 
 source /home/sveinn/.config/secret/.brc
 
@@ -88,7 +89,10 @@ alias gpull="git push"
 alias gs="git status"
 alias gl="git log"
 alias gb="gBranch"
-alias gclone='git git@github.com:$1'
+gClone() {
+  git clone git@github.com:$1
+}
+alias gclone='gClone'
 gBranch(){
 	git branch $1
 	git checkout $1

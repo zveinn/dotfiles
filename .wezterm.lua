@@ -8,7 +8,7 @@ local config = {
 	hide_tab_bar_if_only_one_tab = true,
 	font_size = 12,
 	window_padding = { left = 0, right = 0, top = 0, bottom = 0 },
-	window_background_opacity = 1,
+	window_background_opacity = 0.7,
 	-- foreground_text_hsb = {
 	-- 	hue = 1,
 	-- 	saturation = 1,
@@ -23,7 +23,7 @@ config.keys = {
 		mods = 'CTRL',
 		action = wezterm.action("IncreaseFontSize"),
 	},
-	{
+	{	
 		key = '-',
 		mods = 'CTRL',
 		action = wezterm.action("DecreaseFontSize"),
@@ -37,6 +37,11 @@ config.keys = {
 		key = 'v',
 		mods = 'CTRL',
 		action = wezterm.action({ PasteFrom = "Clipboard" }),
+	},
+	{
+		key = 'c',
+		mods = 'CTRL',
+		action = wezterm.action({ CopyTo = "Clipboard" }),
 	},
 }
 

@@ -7,7 +7,7 @@ vim.opt.compatible = false
 vim.opt.hlsearch = true
 
 vim.opt.foldenable = false
--- vim.opt.relativenumber = true
+vim.opt.relativenumber = false
 vim.opt.number = false
 vim.opt.laststatus = 3
 vim.opt.vb = true
