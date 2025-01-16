@@ -1,10 +1,11 @@
 #!/bin/bash
 #
-export GOROOT=/usr/local/go
-export GOPATH=$GOROOT
-export PATH=$PATH:$GOROOT/bin
-
-bind '"rr":reverse-search-history'
+#export GOPATH=$GOROOT
+#export GOPROXY="direct"
+#export GOROOT=/home/keyb1nd/go
+export PATH=$PATH:/usr/local/go/bin
+#export PATH=$PATH:$GOROOT/bin
+bind '"?":reverse-search-history'
 
 
 # export PS1='$(whoami):${PWD/*\//} > '
@@ -37,7 +38,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 shopt -s expand_aliases
-alias s="sudo askpass sveinn"
+alias s="history | grep $1"
 alias r="source ~/.bashrc"
 alias c="clear"
 alias e="exit"
@@ -80,7 +81,7 @@ alias cdt="cd /home/sveinn/go-code/tunnels"
 alias cdssh="cd ~/.ssh"
 alias cdgo="cd /home/sveinn/go-code/"
 
-source /home/sveinn/.config/secret/.brc
+#source /home/sveinn/.config/secret/.brc
 
 alias gaa="git add --all"
 alias gca="git commit -am $1"
