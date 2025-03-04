@@ -3,12 +3,12 @@ local wezterm = require 'wezterm';
 local config = {
 	default_prog = { 'bash' },
 	color_scheme = 'One Dark (Gogh)',
-	disable_default_key_bindings = false,
+	disable_default_key_bindings = true,
 	-- window_decorations = "NONE",
 	hide_tab_bar_if_only_one_tab = true,
 	font_size = 12,
 	window_padding = { left = 0, right = 0, top = 0, bottom = 0 },
-	window_background_opacity = 0.7,
+	window_background_opacity = 1,
 	-- foreground_text_hsb = {
 	-- 	hue = 1,
 	-- 	saturation = 1,
@@ -23,7 +23,7 @@ config.keys = {
 		mods = 'CTRL',
 		action = wezterm.action("IncreaseFontSize"),
 	},
-	{	
+	{
 		key = '-',
 		mods = 'CTRL',
 		action = wezterm.action("DecreaseFontSize"),
@@ -38,11 +38,11 @@ config.keys = {
 		mods = 'CTRL',
 		action = wezterm.action({ PasteFrom = "Clipboard" }),
 	},
-	{
-		key = 'c',
-		mods = 'CTRL',
-		action = wezterm.action({ CopyTo = "Clipboard" }),
-	},
+	-- {
+	-- 	key = 'c',
+	-- 	mods = 'CTRL',
+	-- 	action = wezterm.action({ CopyTo = "Clipboard" }),
+	-- },
 }
 
 if wezterm.target_triple == 'x86_64-pc-windows-msvc' then

@@ -1,11 +1,20 @@
 #!/bin/bash
 #
-#export GOPATH=$GOROOT
-#export GOPROXY="direct"
-#export GOROOT=/home/keyb1nd/go
+# export GOPROXY="direct"
+# export GOROOT=/home/keyb1nd/go
+export GOROOT=/usr/local/go
 export PATH=$PATH:/usr/local/go/bin
-#export PATH=$PATH:$GOROOT/bin
-bind '"?":reverse-search-history'
+export GOPATH=$GOROOT
+export PATH=$PATH:$GOROOT/bin
+bind '"\C-r":reverse-search-history'
+#bind '"?" : self-insert'
+#bind -r "?"
+
+
+function website_deploy(){
+scp -r -i /root/.ssh/sveinn-1984 /home/sveinn/code/new-website/dist/* root@195.246.231.55:/var/www/web
+}
+alias web-deploy='website_deploy'
 
 
 # export PS1='$(whoami):${PWD/*\//} > '
@@ -31,7 +40,12 @@ function get_command_number() {
   echo $((command_num + 1))
 }
 
-export PS1='\033[34m!$(get_command_number) \033[0m$(whoami) \033[35m${PWD/*\/} \033[36m$(parse_git_branch)\033[0m\n '
+function datex(){
+	echo $(date)
+
+}
+export PS1='\n \033[0m$(whoami) \033[35m${PWD} \033[36m$(parse_git_branch)\033[0m\n  '
+#export PS1='\n \033[0m$(whoami) \033[35m${PWD/*\/} \033[36m$(parse_git_branch)\033[0m\n  '
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -89,11 +103,11 @@ alias gpush="git push"
 alias gpull="git push"
 alias gs="git status"
 alias gl="git log"
-alias gb="gBranch"
+alias gc='gClone'
 gClone() {
   git clone git@github.com:$1
 }
-alias gclone='gClone'
+alias gb="gBranch"
 gBranch(){
 	git branch $1
 	git checkout $1
