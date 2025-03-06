@@ -66,10 +66,7 @@ alias lsh="ls -lahF --color=auto"
 alias ns="netstat -tulpn"
 
 alias ipt="iptables $1"
-alias setup-iptables="setupiptables"
-setup-system(){
- cp ./sysctl.conf /etc/sysctl.conf
-
+setup-iptables(){
 
  iptables -F
  iptables -X
@@ -81,6 +78,20 @@ setup-system(){
  iptables -P OUTPUT ACCEPT
 
  iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+ iptables -A INPUT --src 127.0.0.1 --dst 127.0.0.1 -j ACCEPT
+ iptables-save >> /etc/iptables/iptables.rules 
+
+}
+
+setup-system(){
+ sudo pacman -S $(pacman -Sgq nerd-fonts)
+
+ cp ./iptables-restore.service /etc/systemd/system/iptables-restore.service
+ systemctl enable iptables-restore.service
+ systemctl start iptables-restore.service
+
+ cp ./sysctl.conf /etc/sysctl.conf
+ sysctl -p
 }
 
 
