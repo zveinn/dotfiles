@@ -11,10 +11,6 @@ bind '"\C-r":reverse-search-history'
 #bind -r "?"
 
 
-function website_deploy(){
-scp -r -i /root/.ssh/sveinn-1984 /home/sveinn/code/new-website/dist/* root@195.246.231.55:/var/www/web
-}
-alias web-deploy='website_deploy'
 
 
 # export PS1='$(whoami):${PWD/*\//} > '
