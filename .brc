@@ -162,6 +162,10 @@ alias di='docker images'
 alias drmi='docker rmi'
 alias dl='docker logs'
 
+dex(){
+	docker exec -ti "$1" bash
+}
+
 alias k="kubectl"
 alias kg="kubectl get"
 alias ks="kubectl get pod,svc -n kube-system"
