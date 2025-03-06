@@ -1,0 +1,193 @@
+#!/bin/bash
+#
+# export GOPROXY="direct"
+# export GOROOT=/home/keyb1nd/go
+export GOROOT=/usr/local/go
+export PATH=$PATH:/usr/local/go/bin
+export GOPATH=$GOROOT
+export PATH=$PATH:$GOROOT/bin
+bind '"\C-r":reverse-search-history'
+#bind '"?" : self-insert'
+#bind -r "?"
+
+
+
+
+# export PS1='$(whoami):${PWD/*\//} > '
+# export PS1='$(whoami):\u001b[32;1m${PWD/*\/}\u001b[0m > '
+# export PS1='$(whoami):\u001b[34m${PWD/*\/}\u001b[0m > '
+# export PS1='$(whoami):\033[34m${PWD/*\/}\033[0m > '
+#  function parse_git_branch() {
+# 	 echo "/"$(git branch 2> /dev/null --show-current) || echo "(no git)"
+# }
+
+function parse_git_branch() {
+  git_branch=$(git branch 2> /dev/null --show-current)
+  if [ $? -eq 0 ]; then
+    echo "$git_branch"
+  else
+    echo ""
+  fi
+}
+
+function get_command_number() {
+  # history | tail -n 1 | awk '{print $1}'
+	 command_num=$(history | tail -n 1 | awk '{print $1}')
+  echo $((command_num + 1))
+}
+
+function datex(){
+	echo $(date)
+
+}
+export PS1='\n \033[0m$(whoami) \033[35m${PWD} \033[36m$(parse_git_branch)\033[0m\n  '
+#export PS1='\n \033[0m$(whoami) \033[35m${PWD/*\/} \033[36m$(parse_git_branch)\033[0m\n  '
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+shopt -s expand_aliases
+alias s="history | grep $1"
+alias r="source ~/.bashrc"
+alias c="clear"
+alias e="exit"
+alias ..="cd .."
+alias ...="cd ..;cd .."
+alias ....="cd ..;cd ..;cd .."
+alias .....="cd ..;cd ..;cd ..;cd .."
+alias ......="cd ..;cd ..;cd ..;cd ..;cd .."
+alias ls="ls -laF --color=auto"
+alias lsh="ls -lahF --color=auto"
+alias ns="netstat -tulpn"
+
+alias ipt="iptables $1"
+setup-iptables(){
+
+ iptables -F
+ iptables -X
+ iptables -t nat -F
+ iptables -t mangle -F
+
+ iptables -P INPUT DROP
+ iptables -P FORWARD DROP
+ iptables -P OUTPUT ACCEPT
+
+ iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+ iptables -A INPUT --src 127.0.0.1 --dst 127.0.0.1 -j ACCEPT
+ iptables-save >> /etc/iptables/iptables.rules 
+
+}
+
+setup-system(){
+ sudo pacman -S $(pacman -Sgq nerd-fonts)
+
+ cp ./iptables-restore.service /etc/systemd/system/iptables-restore.service
+ systemctl enable iptables-restore.service
+ systemctl start iptables-restore.service
+
+ cp ./sysctl.conf /etc/sysctl.conf
+ sysctl -p
+}
+
+
+alias tn="tmux new -s $1"
+alias tr="tmux source ~/.tmux.conf"
+alias td="tmux detach"
+alias ta="tmux attach -d -t $1"
+alias tl="tmux ls"
+alias tnw="tmux new-window;tmux rename-window $1"
+alias ts="tmux switch -t $1"
+alias tsc="tmux switch -t config"
+alias tst="tmux switch -t tunnels"
+alias tsm="tmux switch -t monorepo"
+alias tse="tmux switch -t eos"
+alias tsd="tmux switch -t dplz"
+alias tsb="tmux switch -t bluam"
+alias tsmc="tmux switch -t mc"
+alias tmoveleft="tmux swap-window -t 0"
+
+
+alias v="nvim"
+alias vv="nvim ."
+alias vc="v ~/.config/nvim"
+alias vm="v ~/code/monorepo"
+alias vtunnels="v ~/code/tunnels"
+
+alias cdc="cd ~/.config/nvim"
+alias cdm="cd ~/code/monorepo"
+alias cdt="cd ~/code/tunnels"
+alias cdssh="cd ~/.ssh"
+alias cdgo="cd ~/code/"
+
+#source /home/sveinn/.config/secret/.brc
+
+alias gaa="git add --all"
+alias gca="git commit -am $1"
+alias gpush="git push"
+alias gpull="git push"
+alias gs="git status"
+alias gl="git log"
+alias gc='gClone'
+gClone() {
+  git clone git@github.com:$1
+}
+alias gb="gBranch"
+gBranch(){
+	git branch $1
+	git checkout $1
+}
+# alias grs="gh repo sync $1 -b master"
+alias grs="syncRepo"
+syncRepo() {
+	gh repo sync "$1" -b "master"
+	echo "do not forget to git pull"
+}
+
+
+alias l="lazygit"
+
+alias d='docker'
+alias ds='docker start'
+alias dst='docker stop'
+alias dr='docker run'
+alias drm='docker remove'
+alias dps='docker ps --all'
+alias dpsa='docker ps --all'
+alias di='docker images'
+alias drmi='docker rmi'
+alias dl='docker logs'
+
+dex(){
+	docker exec -ti "$1" bash
+}
+
+alias k="kubectl"
+alias kg="kubectl get"
+alias ks="kubectl get pod,svc -n kube-system"
+ka(){
+	echo "KIND NETWORK"
+	docker network inspect -f '{{.IPAM.Config}}' kind
+	echo "NODES"
+	echo "=============================================================="
+	echo ""
+	kubectl get nodes
+	echo "=============================================================="
+	echo ""
+	echo "PODS/SERVICES >>> NAMESPACE: kube-system"
+	echo "=============================================================="
+	kubectl get pod,svc -n kube-system
+	echo "=============================================================="
+	echo ""
+	echo "PODS/SERVICES >>> NAMESPACE: default"
+	echo "=============================================================="
+	kubectl get pod,svc -n default
+	echo "=============================================================="
+	echo ""
+	echo "PODS/SERVICES >>> NAMESPACE: minio-operator"
+	echo "=============================================================="
+	kubectl get pod,svc -n minio-operator
+	echo "=============================================================="
+}
+
+

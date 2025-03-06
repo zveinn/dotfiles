@@ -1,0 +1,11 @@
+[Unit]
+Before=network-pre.target
+Wants=network-pre.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/iptables-restore < /etc/iptables/iptables.rules
+
+[Install]
+WantedBy=multi-user.target
