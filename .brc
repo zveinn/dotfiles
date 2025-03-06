@@ -65,6 +65,24 @@ alias ls="ls -laF --color=auto"
 alias lsh="ls -lahF --color=auto"
 alias ns="netstat -tulpn"
 
+alias ipt="iptables $1"
+alias setup-iptables="setupiptables"
+setup-system(){
+ cp ./sysctl.conf /etc/sysctl.conf
+
+
+ iptables -F
+ iptables -X
+ iptables -t nat -F
+ iptables -t mangle -F
+
+ iptables -P INPUT DROP
+ iptables -P FORWARD DROP
+ iptables -P OUTPUT ACCEPT
+
+ iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+}
+
 
 alias tn="tmux new -s $1"
 alias tr="tmux source ~/.tmux.conf"
