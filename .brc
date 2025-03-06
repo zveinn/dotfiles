@@ -114,15 +114,15 @@ alias tmoveleft="tmux swap-window -t 0"
 
 alias v="nvim"
 alias vv="nvim ."
-alias vc="v /home/sveinn/.config/nvim"
-alias vm="v /home/sveinn/go-code/monorepo"
-alias vtunnels="v /home/sveinn/go-code/tunnels"
+alias vc="v ~/.config/nvim"
+alias vm="v ~/code/monorepo"
+alias vtunnels="v ~/code/tunnels"
 
-alias cdc="cd /home/sveinn/.config/nvim"
-alias cdm="cd /home/sveinn/go-code/monorepo"
-alias cdt="cd /home/sveinn/go-code/tunnels"
+alias cdc="cd ~/.config/nvim"
+alias cdm="cd ~/code/monorepo"
+alias cdt="cd ~/code/tunnels"
 alias cdssh="cd ~/.ssh"
-alias cdgo="cd /home/sveinn/go-code/"
+alias cdgo="cd ~/code/"
 
 #source /home/sveinn/.config/secret/.brc
 
