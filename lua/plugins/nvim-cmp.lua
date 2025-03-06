@@ -142,7 +142,23 @@ luasnip.add_snippets("go", {
 })
 luasnip.add_snippets("go", {
 	s("e", {
-		t({ "if err != nil {", '\treturn err', "}" }),
+		t({ "if err != nil {", '\tpanic(err)', "}" }),
+	})
+})
+
+luasnip.add_snippets("go", {
+	s("ap", {
+		t({ "atomic.Pointer[" }), i(1), t({ "]" }),
+	})
+})
+luasnip.add_snippets("go", {
+	s("a", {
+		t({ "atomic." }), i(1),
+	})
+})
+luasnip.add_snippets("go", {
+	s("ab", {
+		t({ "atomic.Bool" })
 	})
 })
 
