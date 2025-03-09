@@ -53,3 +53,16 @@ vim.opt.cursorline = true
 -- vim.o.guifont = "Hurmit Nerd Font Mono"
 vim.opt.shell = '/bin/bash -i'
 vim.o.guifont = "Berkeley Mono"
+
+vim.diagnostic.config({
+	virtual_lines = { 
+		wrap = true, 
+		highlight_whole_line = false
+	},
+	virtual_text = false,
+  -- virtual_text = {
+  --   wrap = true,
+  --   spacing = 4,
+  -- },
+})
+

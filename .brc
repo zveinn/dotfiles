@@ -21,6 +21,7 @@ bind '"\C-r":reverse-search-history'
 # 	 echo "/"$(git branch 2> /dev/null --show-current) || echo "(no git)"
 # }
 
+
 function parse_git_branch() {
   git_branch=$(git branch 2> /dev/null --show-current)
   if [ $? -eq 0 ]; then
@@ -40,7 +41,9 @@ function datex(){
 	echo $(date)
 
 }
-export PS1='\n \033[0m$(whoami) \033[35m${PWD} \033[36m$(parse_git_branch)\033[0m\n  '
+# export PS1='\n \033[0m$(whoami) \033[35m${PWD} \033[36m$(parse_git_branch)\033[0m\n  '
+export PS1='\n \033[0m$(whoami) \033[35m${PWD} \033[36m$(parse_git_branch)\033[0m\n \033]12;#cb73de\007\033[?12h '
+
 #export PS1='\n \033[0m$(whoami) \033[35m${PWD/*\/} \033[36m$(parse_git_branch)\033[0m\n  '
 
 export NVM_DIR="$HOME/.nvm"

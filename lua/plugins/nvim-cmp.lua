@@ -175,6 +175,7 @@ luasnip.add_snippets("go", {
 	})
 })
 
+vim.api.nvim_create_augroup('AutoFormatting', {})
 
 local on_attach2 = function(_, bufnr)
 	local nmap = function(keys, func, desc)
@@ -208,7 +209,6 @@ local on_attach2 = function(_, bufnr)
 	--		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 	--	end, '[W]orkspace [L]ist Folders')
 
-	vim.api.nvim_create_augroup('AutoFormatting', {})
 
 	-- vim.api.nvim_create_autocmd("InsertLeave", {
 	-- 	group = 'AutoFormatting',
@@ -218,6 +218,7 @@ local on_attach2 = function(_, bufnr)
 	-- 		vim.api.nvim_command("wall")
 	-- 	end,
 	-- })
+	--
 
 	vim.api.nvim_create_autocmd('BufWritePre', {
 		pattern = '*.*',
@@ -230,6 +231,14 @@ end
 
 
 local configs = require 'lspconfig/configs'
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.json", -- Restrict to JSON files
+  group = "AutoFormatting",
+  callback = function()
+    vim.cmd("%!jq .") -- Filter the entire buffer through jq
+  end,
+})
 
 configs.golangcilsp = {
 	default_config = {
@@ -362,12 +371,6 @@ lspconfig.eslint.setup {
 }
 
 lspconfig.ts_ls.setup({
-	capabilities = capabilities,
-	on_attach = on_attach2,
-})
-
-
-lspconfig.jsonls.setup({
 	capabilities = capabilities,
 	on_attach = on_attach2,
 })

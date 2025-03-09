@@ -21,6 +21,13 @@ return require("packer").startup(function()
 
 	use "folke/neodev.nvim"
 
+	use {
+  "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+  config = function()
+    require("lsp_lines").setup()
+  end,
+	}
+
 	use { "catppuccin/nvim", as = "catppuccin" }
 	use "nvim-lualine/lualine.nvim"
 	use {

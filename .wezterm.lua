@@ -49,7 +49,7 @@ if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
 	config.default_prog = { 'C:/Program Files/Git/bin/bash.exe -i -l' }
 end
 
-config.colors = { foreground = "#abb2bf", background = "#080808" }
+config.colors = { foreground = "#abb2bf", background = "#ffffff" }
 -- config.font = wezterm.font('Hurmit Nerd Font Mono', { weight = 'Medium', italic = false })
 config.font = wezterm.font('Berkeley Mono', { weight = 'Medium', italic = false })
 
