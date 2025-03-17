@@ -19,8 +19,6 @@ local packer_bootstrap = ensure_packer() -- true if packer was just installed
 return require("packer").startup(function()
 	use "wbthomason/packer.nvim"
 
-	use "folke/neodev.nvim"
-
 	use { "catppuccin/nvim", as = "catppuccin" }
 	use "nvim-lualine/lualine.nvim"
 	use {

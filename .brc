@@ -1,23 +1,8 @@
 #!/bin/bash
-#
-# export GOPROXY="direct"
-# export GOROOT=/home/keyb1nd/go
-# export GOROOT=/usr/local/go
+
 export PATH=$PATH:/usr/local/go/bin:~/code/bin
-export GOPATH=/home/anon/code
-#export PATH=$PATH:$GOROOT/bin
+export GOPATH=~/code
 bind '"\C-r":reverse-search-history'
-#bind '"?" : self-insert'
-#bind -r "?"
-
-
-# export PS1='$(whoami):${PWD/*\//} > '
-# export PS1='$(whoami):\u001b[32;1m${PWD/*\/}\u001b[0m > '
-# export PS1='$(whoami):\u001b[34m${PWD/*\/}\u001b[0m > '
-# export PS1='$(whoami):\033[34m${PWD/*\/}\033[0m > '
-#  function parse_git_branch() {
-# 	 echo "/"$(git branch 2> /dev/null --show-current) || echo "(no git)"
-# }
 
 function parse_git_branch() {
   git_branch=$(git branch 2> /dev/null --show-current)
@@ -29,21 +14,11 @@ function parse_git_branch() {
 }
 
 function get_command_number() {
-  # history | tail -n 1 | awk '{print $1}'
-	 command_num=$(history | tail -n 1 | awk '{print $1}')
+	command_num=$(history | tail -n 1 | awk '{print $1}')
   echo $((command_num + 1))
 }
 
-function datex(){
-	echo $(date)
-
-}
-
 export PS1='\n \033[0m$(whoami) \033[35m${PWD} \033[36m$(parse_git_branch)\033[0m\n  '
-#export PS1='\n \033[0m$(whoami) \033[35m${PWD/*\/} \033[36m$(parse_git_branch)\033[0m\n  '
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 shopt -s expand_aliases
 alias s="history | grep $1"
@@ -60,8 +35,8 @@ alias lsh="ls -lahF --color=auto"
 alias ns="netstat -tulpn"
 
 alias ipt="iptables $1"
-setup-iptables(){
 
+setup-iptables(){
  iptables -F
  iptables -X
  iptables -t nat -F
@@ -74,12 +49,56 @@ setup-iptables(){
  iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
  iptables -A INPUT --src 127.0.0.1 --dst 127.0.0.1 -j ACCEPT
  iptables-save >> /etc/iptables/iptables.rules 
+}
+
+sync-fork(){
+	cd ~/code/$1
+	git pull
+	git push fork
+	cd ~/code/$1-fork
+	git pull
+}
+
+setup-repos(){
+ cd ~/code
+ git clone git@github.com:minio/mc mc
+ git clone git@github.com:minio/madmin-go madmin-go
+ git clone git@github.com:minio/minio minio
+ git clone git@github.com:miniohq/eos eos
+ git clone git@github.com:miniohq/ec ec
+
+ git clone git@github.com:zveinn/mc mc-fork
+ git clone git@github.com:zveinn/madmin-go madmin-go-fork
+ git clone git@github.com:zveinn/minio minio-fork
+ git clone git@github.com:zveinn/eos eos-fork
+ git clone git@github.com:zveinn/ec ec-fork
+
+ cd ~/code/ec
+ git remote add fork git@github.com:zveinn/ec
+ cd ~/code/mc
+ git remote add fork git@github.com:zveinn/mc
+ cd ~/code/madmin-go
+ git remote add fork git@github.com:zveinn/madmin-go
+ cd ~/code/minio
+ git remote add fork git@github.com:zveinn/minio
+ cd ~/code/eos
+ git remote add fork git@github.com:zveinn/eos
 
 }
 
+setup-code(){
+	mkdir -p ~/code
+	wget https://go.dev/dl/go1.24.1.linux-amd64.tar.gz
+	rm -rf /usr/local/go && tar -C /usr/local -xzf go1.24.1.linux-amd64.tar.gz
+	go install github.com/nametake/golangci-lint-langserver@latest
+	go install golang.org/x/tools/gopls@latest
+
+	apt install nodejs npm -y
+	npm install -g typescript-language-server typescript
+}
+
 setup-system(){
- # sudo pacman -S $(pacman -Sgq nerd-fonts)
- apt install git htop wget curl nodejs npm xclip neovim -y
+ apt install git htop wget curl xclip neovim -y
 
  cp ./iptables-restore.service /etc/systemd/system/iptables-restore.service
  systemctl enable iptables-restore.service
@@ -118,8 +137,6 @@ alias cdm="cd ~/code/monorepo"
 alias cdt="cd ~/code/tunnels"
 alias cdssh="cd ~/.ssh"
 alias cdgo="cd ~/code/"
-
-#source /home/sveinn/.config/secret/.brc
 
 alias gaa="git add --all"
 alias gca="git commit -am $1"
@@ -161,32 +178,32 @@ dex(){
 	docker exec -ti "$1" bash
 }
 
-alias k="kubectl"
-alias kg="kubectl get"
-alias ks="kubectl get pod,svc -n kube-system"
-ka(){
-	echo "KIND NETWORK"
-	docker network inspect -f '{{.IPAM.Config}}' kind
-	echo "NODES"
-	echo "=============================================================="
-	echo ""
-	kubectl get nodes
-	echo "=============================================================="
-	echo ""
-	echo "PODS/SERVICES >>> NAMESPACE: kube-system"
-	echo "=============================================================="
-	kubectl get pod,svc -n kube-system
-	echo "=============================================================="
-	echo ""
-	echo "PODS/SERVICES >>> NAMESPACE: default"
-	echo "=============================================================="
-	kubectl get pod,svc -n default
-	echo "=============================================================="
-	echo ""
-	echo "PODS/SERVICES >>> NAMESPACE: minio-operator"
-	echo "=============================================================="
-	kubectl get pod,svc -n minio-operator
-	echo "=============================================================="
-}
-
+# alias k="kubectl"
+# alias kg="kubectl get"
+# alias ks="kubectl get pod,svc -n kube-system"
+# ka(){
+# 	echo "KIND NETWORK"
+# 	docker network inspect -f '{{.IPAM.Config}}' kind
+# 	echo "NODES"
+# 	echo "=============================================================="
+# 	echo ""
+# 	kubectl get nodes
+# 	echo "=============================================================="
+# 	echo ""
+# 	echo "PODS/SERVICES >>> NAMESPACE: kube-system"
+# 	echo "=============================================================="
+# 	kubectl get pod,svc -n kube-system
+# 	echo "=============================================================="
+# 	echo ""
+# 	echo "PODS/SERVICES >>> NAMESPACE: default"
+# 	echo "=============================================================="
+# 	kubectl get pod,svc -n default
+# 	echo "=============================================================="
+# 	echo ""
+# 	echo "PODS/SERVICES >>> NAMESPACE: minio-operator"
+# 	echo "=============================================================="
+# 	kubectl get pod,svc -n minio-operator
+# 	echo "=============================================================="
+# }
+#
 

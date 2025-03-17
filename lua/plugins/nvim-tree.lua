@@ -5,13 +5,10 @@ vim.cmd([[
   nnoremap - :NvimTreeToggle<CR>
 ]])
 
--- local keymap = vim.keymap -- for conciseness
--- keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>") -- toggle file explorer
 
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-vim.opt.foldenable = false --                  " Disable folding at startup.
-
+vim.opt.foldenable = false
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
