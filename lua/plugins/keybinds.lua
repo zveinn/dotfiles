@@ -61,7 +61,7 @@ pcall(require('telescope').load_extension, 'fzf')
 -- vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
 
 vim.keymap.set('n', '<leader>a', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
-vim.keymap.set('n', '<ledaer>d', ':lua vim.diagnostic.goto_next()<cr> zz')
+vim.keymap.set('n', '<leader>d', ':lua vim.diagnostic.goto_next()<cr> zz')
 vim.keymap.set('n', '<leader>s', vim.diagnostic.open_float)
 
 --vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
