@@ -1,0 +1,107 @@
+attribute = "light_purple"
+keyword = "soft_blue"
+"keyword.directive" = "light_purple" # preprocessor comments
+namespace = "light_purple"
+punctuation = "muted_purple"
+"punctuation.delimiter" = "muted_purple"
+operator = "light_purple"
+special = "bright_blue"
+"variable.other.member" = "soft_purple"
+variable = "muted_purple"
+"variable.parameter" = { fg = "muted_purple" }
+"variable.builtin" = "white"
+type = "soft_purple"
+"type.builtin" = "white"
+constructor = "light_purple"
+function = "function_blue"         # Bluish color for functions/methods
+"function.macro" = "light_purple"
+"function.builtin" = "white"       # Imported uses like "log", "fmt" in white
+tag = "soft_blue"
+comment = "dark_gray"
+constant = "soft_purple"
+"constant.builtin" = "white"
+string = "soft_green"
+"constant.numeric" = "bright_blue"
+"constant.character.escape" = "bright_blue"
+label = "orange"                   # Orange for goto labels
+tabstop = { modifiers = ["italic"], bg = "dark_purple" }
+
+"markup.heading" = "light_purple"
+"markup.bold" = { modifiers = ["bold"] }
+"markup.italic" = { modifiers = ["italic"] }
+"markup.strikethrough" = { modifiers = ["crossed_out"] }
+"markup.link.url" = { fg = "light_gray", modifiers = ["underlined"] }
+"markup.link.text" = "white"       # Non-code text in white
+"markup.raw" = "white"             # Non-code text in white
+
+"diff.plus" = "#4CAF50"  # Green for additions
+"diff.minus" = "#F44336" # Red for deletions
+"diff.delta" = "#6F44F0" # Purple for changes
+
+"ui.background" = { bg = "blackish" }
+"ui.background.separator" = { fg = "dark_gray" }
+"ui.linenr" = { fg = "dark_gray" }
+"ui.linenr.selected" = { fg = "light_purple" }
+"ui.statusline" = { fg = "light_purple", bg = "dark_purple" }
+"ui.statusline.inactive" = { fg = "muted_purple", bg = "dark_purple" }
+"ui.popup" = { bg = "dark_purple" }
+"ui.window" = { fg = "dark_purple" }
+"ui.help" = { bg = "dark_purple", fg = "white" }
+"ui.text" = "white"                # Non-code text in white
+"ui.text.focus" = "white"
+"ui.text.inactive" = "dark_gray"
+"ui.text.directory" = { fg = "light_purple" }
+"ui.virtual" = { fg = "dark_gray" }
+"ui.virtual.ruler" = { bg = "dark_purple" }
+"ui.virtual.jump-label" = { fg = "bright_blue", modifiers = ["bold"] }
+"ui.virtual.indent-guide" = { fg = "dark_gray" }
+
+"ui.selection" = { bg = "selection_purple" }
+"ui.selection.primary" = { bg = "selection_purple" }
+"ui.cursor.select" = { bg = "bright_blue" }
+"ui.cursor.insert" = { bg = "white" }
+"ui.cursor.primary.select" = { bg = "bright_blue" }
+"ui.cursor.primary.insert" = { bg = "white" }
+"ui.cursor.match" = { fg = "white", bg = "selection_purple" }
+"ui.cursor" = { modifiers = ["reversed"] }
+"ui.cursorline.primary" = { bg = "dark_purple" }
+"ui.highlight" = { bg = "dark_purple" }
+"ui.highlight.frameline" = { bg = "muted_purple" }
+"ui.debug" = { fg = "muted_purple" }
+"ui.debug.breakpoint" = { fg = "bright_blue" }
+"ui.menu" = { fg = "white", bg = "dark_purple" }  # Non-code text in white
+"ui.menu.selected" = { fg = "dark_purple", bg = "white" }
+"ui.menu.scroll" = { fg = "muted_purple", bg = "dark_gray" }
+
+"diagnostic.hint" = { underline = { color = "light_gray", style = "curl" } }
+"diagnostic.info" = { underline = { color = "bright_blue", style = "curl" } }
+"diagnostic.warning" = { underline = { color = "warning_red", style = "curl" } }
+"diagnostic.error" = { underline = { color = "error_red", style = "curl" } }
+"diagnostic.unnecessary" = { modifiers = ["dim"] }
+"diagnostic.deprecated" = { modifiers = ["crossed_out"] }
+
+warning = "warning_red"
+error = "error_red"
+info = "bright_blue"
+hint = "light_gray"
+
+# Assuming "func" falls under keyword.function in Helix
+"keyword.function" = "white"       # Declarative symbols like "func" in white
+
+[palette]
+white = "#FFFFFF"
+blackish = "#1A1A1A"      # Blackish background
+dark_purple = "#2A2A40"   # Slightly lighter purple for UI elements
+selection_purple = "#4A4060" # Subtle selection highlight
+light_purple = "#BB86FC"  # Bright purple for accents
+muted_purple = "#9579D1"  # Softer purple for text
+soft_purple = "#A48FFF"   # For types, constants, members
+function_blue = "#5C9EFF" # New bluish color for functions/methods
+soft_blue = "#82A2FF"     # Gentle blue for keywords
+bright_blue = "#42A5F5"   # Vivid blue for special items
+soft_green = "#88B98F"    # Muted green for strings
+light_gray = "#B0B0B5"    # Light gray for secondary elements
+dark_gray = "#5A5A70"     # Darker gray for comments
+warning_red = "#FF5555"   # Bright red for warnings
+error_red = "#FF3333"     # Slightly darker red for errors
+orange = "#FF8C42"        # Orange for goto labels

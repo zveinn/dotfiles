@@ -1,0 +1,99 @@
+attribute = "light_purple"
+keyword = "soft_blue"
+"keyword.directive" = "light_purple" # preprocessor comments
+namespace = "light_purple"
+punctuation = "muted_purple"
+"punctuation.delimiter" = "muted_purple"
+operator = "light_purple"
+special = "bright_blue"
+"variable.other.member" = "white"
+variable = "muted_purple"
+"variable.parameter" = { fg = "muted_purple" }
+"variable.builtin" = "soft_blue"
+type = "white"
+"type.builtin" = "white"
+constructor = "light_purple"
+function = "white"
+"function.macro" = "light_purple"
+"function.builtin" = "white"
+tag = "soft_blue"
+comment = "dark_gray"
+constant = "white"
+"constant.builtin" = "white"
+string = "light_gray"
+"constant.numeric" = "bright_blue"
+"constant.character.escape" = "bright_blue"
+label = "bright_blue"
+tabstop = { modifiers = ["italic"], bg = "dark_purple" }
+
+"markup.heading" = "light_purple"
+"markup.bold" = { modifiers = ["bold"] }
+"markup.italic" = { modifiers = ["italic"] }
+"markup.strikethrough" = { modifiers = ["crossed_out"] }
+"markup.link.url" = { fg = "light_gray", modifiers = ["underlined"] }
+"markup.link.text" = "soft_blue"
+"markup.raw" = "soft_blue"
+
+"diff.plus" = "#4CAF50"  # Green for additions
+"diff.minus" = "#F44336" # Red for deletions
+"diff.delta" = "#6F44F0" # Purple for changes
+
+"ui.background" = { bg = "blackish" }
+"ui.background.separator" = { fg = "dark_gray" }
+"ui.linenr" = { fg = "dark_gray" }
+"ui.linenr.selected" = { fg = "light_purple" }
+"ui.statusline" = { fg = "light_purple", bg = "dark_purple" }
+"ui.statusline.inactive" = { fg = "muted_purple", bg = "dark_purple" }
+"ui.popup" = { bg = "dark_purple" }
+"ui.window" = { fg = "dark_purple" }
+"ui.help" = { bg = "dark_purple", fg = "white" }
+"ui.text" = { fg = "muted_purple" }
+"ui.text.focus" = { fg = "white" }
+"ui.text.inactive" = "dark_gray"
+"ui.text.directory" = { fg = "light_purple" }
+"ui.virtual" = { fg = "dark_gray" }
+"ui.virtual.ruler" = { bg = "dark_purple" }
+"ui.virtual.jump-label" = { fg = "bright_blue", modifiers = ["bold"] }
+"ui.virtual.indent-guide" = { fg = "dark_gray" }
+
+"ui.selection" = { bg = "selection_purple" }
+"ui.selection.primary" = { bg = "selection_purple" }
+"ui.cursor.select" = { bg = "bright_blue" }
+"ui.cursor.insert" = { bg = "white" }
+"ui.cursor.primary.select" = { bg = "bright_blue" }
+"ui.cursor.primary.insert" = { bg = "white" }
+"ui.cursor.match" = { fg = "white", bg = "selection_purple" }
+"ui.cursor" = { modifiers = ["reversed"] }
+"ui.cursorline.primary" = { bg = "dark_purple" }
+"ui.highlight" = { bg = "dark_purple" }
+"ui.highlight.frameline" = { bg = "muted_purple" }
+"ui.debug" = { fg = "muted_purple" }
+"ui.debug.breakpoint" = { fg = "bright_blue" }
+"ui.menu" = { fg = "muted_purple", bg = "dark_purple" }
+"ui.menu.selected" = { fg = "dark_purple", bg = "white" }
+"ui.menu.scroll" = { fg = "muted_purple", bg = "dark_gray" }
+
+"diagnostic.hint" = { underline = { color = "light_gray", style = "curl" } }
+"diagnostic.info" = { underline = { color = "bright_blue", style = "curl" } }
+"diagnostic.warning" = { underline = { color = "warning_red", style = "curl" } }
+"diagnostic.error" = { underline = { color = "error_red", style = "curl" } }
+"diagnostic.unnecessary" = { modifiers = ["dim"] }
+"diagnostic.deprecated" = { modifiers = ["crossed_out"] }
+
+warning = "warning_red"
+error = "error_red"
+info = "bright_blue"
+hint = "light_gray"
+
+[palette]
+white = "#FFFFFF"
+blackish = "#1A1A1A"      # Blackish background
+dark_purple = "#2A2A40"   # Slightly lighter purple for UI elements
+selection_purple = "#4A4060" # Subtle selection highlight
+light_purple = "#BB86FC"  # Bright purple for accents
+muted_purple = "#9579D1"  # Softer purple for text
+soft_blue = "#82A2FF"     # Gentle blue for keywords
+bright_blue = "#42A5F5"   # Vivid blue for special items
+light_gray = "#B0B0B5"    # Light gray for strings
+dark_gray = "#5A5A70"     # Darker gray for comments
+warning_red = "#FF5555"   # Bright
