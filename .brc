@@ -134,6 +134,7 @@ setup-obs(){
 setup-root(){
  pacman -S noto-fonts noto-fonts-cjk noto-fonts-emoji
  pacman -S $(pacman -Sgq nerd-fonts)	
+
  cp ./iptables-restore.service /etc/systemd/system/iptables-restore.service
  systemctl enable iptables-restore.service
  systemctl start iptables-restore.service
@@ -151,6 +152,12 @@ setup-root(){
  systemctl disable avahi-daemon
  systemctl stop avahai-daemon
  #https://unix.stackexchange.com/a/671118
+
+ # docker
+ pacman -S docker
+ systemctl enable docker
+ systemctl start docker
+ chown anon:anon /var/run/docker.sock
 }
 
 
