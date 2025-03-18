@@ -5,6 +5,11 @@ theme = "keyb1nd"
 "C-k" = "half_page_up"
 "C-j" = "half_page_down"
 
+"S-l" = "jump_view_right"
+"S-j" = "jump_view_down"
+"S-k" = "jump_view_up"
+"S-h" = "jump_view_left"
+
 [editor]
 line-number = "relative"
 soft-wrap.enable = true

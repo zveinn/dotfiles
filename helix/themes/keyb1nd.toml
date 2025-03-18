@@ -19,7 +19,7 @@ function = "soft_blue"            # User-defined function/method calls in white
 "function.macro" = "soft_blue"   # Rare in Go, but for consistency
 "function.builtin" = "soft_blue"  # Built-in funcs (fmt.Printf, log.Println) in white
 tag = "gentle_teal"                # Tags (e.g., in struct literals)
-comment = "muted_grey"            # Comments
+comment = "muted_gray"            # Comments
 constant = "soft_peach"            # Constants
 "constant.builtin" = "soft_peach"  # Built-in constants (iota)
 string = "lime_green"              # Strings
@@ -78,7 +78,7 @@ label = "bright_orange"            # Goto labels
 "ui.menu.scroll" = { fg = "light_gray", bg = "muted_gray" }
 
 # Diagnostics
-"diagnostic.hint" = { underline = { color = "vidid_red", style = "curl" } }
+"diagnostic.hint" = { underline = { color = "vivid_red", style = "curl" } }
 "diagnostic.info" = { underline = { color = "vivid_red", style = "curl" } }
 "diagnostic.warning" = { underline = { color = "vivid_red", style = "curl" } }
 "diagnostic.error" = { underline = { color = "vivid_red", style = "curl" } }
@@ -109,4 +109,4 @@ muted_green = "#7A9A7A"     # Comments
 lime_green = "#95E19A"      # Strings
 soft_peach = "#FFCC99"      # Constants
 soft_cyan = "#89DDFF"       # Numbers, hints
-vivid_red = "#FF5555"       # Errors
+vivid_red = "#FF5555"

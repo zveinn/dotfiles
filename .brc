@@ -45,6 +45,14 @@ alias ns="netstat -tulpn"
 
 alias ipt="iptables $1"
 
+backup-kde(){
+	cp ~/.config/plasma-org.kde.plasma.desktop-appletsrc ~/.config/dotfiles/kde-backups
+ 	cp ~/.config/plasmashellrc ~/.config/dotfiles/kde-backups
+	cp ~/.config/kwinrc ~/.config/dotfiles/kde-backups
+	cp ~/.config/kdeglobals ~/.config/dotfiles/kde-backups
+  cp ~/.config/dolphinrc ~/.config/dotfiles/kde-backups		
+}
+
 setup-iptables(){
  iptables -F
  iptables -X
@@ -110,6 +118,9 @@ setup-golang() {
 	rm go1.24.1.linux-amd64.tar.gz
 	go install github.com/nametake/golangci-lint-langserver@latest
 	go install golang.org/x/tools/gopls@latest
+  go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+  go install golang.org/x/tools/cmd/goimports@latest
+  go install github.com/go-delve/delve/cmd/dlv@latest
 }
 
 setup-non-root() {
