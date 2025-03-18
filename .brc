@@ -71,7 +71,6 @@ sync-fork(){
 setup-repos(){
  git config --global user.name zveinn
  git config --global user.email info@sveinn.is
-
 	
  mkdir -p ~/code
  cd ~/code
@@ -86,6 +85,11 @@ setup-repos(){
  git clone git@github.com:zveinn/minio minio-fork
  git clone git@github.com:zveinn/eos eos-fork
  git clone git@github.com:zveinn/ec ec-fork
+
+ git clone git@github.com:tunnels-is/tunnels
+ git clone git@github.com:tunnels-is/monorepo
+ git clone git@github.com:tunnels-is/devops
+ git clone git@github.com:n00bady/bluam
 
  cd ~/code/ec
  git remote add fork git@github.com:zveinn/ec
@@ -128,7 +132,8 @@ setup-obs(){
 }
 
 setup-root(){
-	
+ pacman -S noto-fonts noto-fonts-cjk noto-fonts-emoji
+ pacman -S $(pacman -Sgq nerd-fonts)	
  cp ./iptables-restore.service /etc/systemd/system/iptables-restore.service
  systemctl enable iptables-restore.service
  systemctl start iptables-restore.service
@@ -168,8 +173,8 @@ alias tmoveleft="tmux swap-window -t 0"
 
 alias h="helix -c ~/.config/dotfiles/helix/config.toml"
 alias hh="helix -c ~/.config/dotfiles/helix/config.toml ."
-alias hd="v ~/.config/dotfiles"
-alias hm="v ~/code/monorepo"
+alias hc="h ~/.config/dotfiles"
+alias hm="h ~/code/monorepo"
 alias htunnels="v ~/code/tunnels"
 
 sync-helix(){
