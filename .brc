@@ -51,6 +51,7 @@ backup-kde(){
 	cp ~/.config/kwinrc ~/.config/dotfiles/kde-backups
 	cp ~/.config/kdeglobals ~/.config/dotfiles/kde-backups
   cp ~/.config/dolphinrc ~/.config/dotfiles/kde-backups		
+  cp ~/.config/kglobalshortcutsrc ~/.config/dotfiles/kde-backups		
 }
 
 setup-iptables(){
