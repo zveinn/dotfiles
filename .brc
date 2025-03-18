@@ -142,7 +142,10 @@ setup-root(){
  rm /root/.bashrc
  ln -s /home/anon/.config/dotfiles/.brc /root/.bashrc
 
- pacman -Rdd avahi libcups kdeconnect
+ pacman -Rdd libcups kdeconnect
+ systemctl disable avahi-daemon
+ systemctl stop avahai-daemon
+ #https://unix.stackexchange.com/a/671118
 }
 
 
