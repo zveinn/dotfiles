@@ -32,6 +32,7 @@ d = ["vsplit", "goto_definition"]
 c = ["changed_file_picker"]
 l = ["last_picker"]
 x = [":sh ~/.config/dotfiles/test/test"]
+
 h = ["hover"]
 q = ["wclose"]
 f = ["global_search"]
@@ -39,14 +40,18 @@ f = ["global_search"]
 s = ["workspace_symbol_picker"]
 i = ["goto_implementation"]
 e = ["diagnostics_picker"]
-
+r = ["goto_reference"]
 #layer2
 space.d = ["goto_definition"]
 space.a = ["code_action"]
 space.s = ["symbol_picker"]
 space.h = ["hover"]
 space.e = ["goto_prev_diag"]
+space.l = [":sh golangci-lint run --build-tags kqueue --timeout=10m --config .golangci.yml;echo done"]
+space.n = [":new"]
 
+#space.x = ":sh %{ %{linenumber} %{filename}}"
+#space.x = ["%sh echo %{linenumber}"]
 #layer3
 space.space.r = [":config-reload"]
 space.space.l = [":lsp-restart"]
@@ -70,7 +75,7 @@ line-number = "relative"
 soft-wrap.enable = true
 end-of-line-diagnostics = "hint" 
 idle-timeout = 1
-bufferline = "multiple"
+#bufferline = "multiple"
 
 [editor.inline-diagnostics] 
 cursor-line = "error"

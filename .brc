@@ -26,6 +26,9 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+#
+
+alias golint="golangci-lint run --build-tags kqueue --timeout=10m --config .golangci.yml"
 
 export PS1='\n \033[0m$(whoami) \033[35m${PWD} \033[36m$(parse_git_branch)\033[0m\n  '
 
@@ -66,6 +69,7 @@ setup-iptables(){
 
  iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
  iptables -A INPUT --src 127.0.0.1 --dst 127.0.0.1 -j ACCEPT
+ # iptables -A INPUT --src 0.0.0.0 -dport 22 -J ACCEPT
  iptables-save >> /etc/iptables/iptables.rules 
 }
 
@@ -78,6 +82,8 @@ sync-fork(){
 }
 
 setup-repos(){
+ git config --global --add url."git@github.com:".insteadOf "https://github.com/"
+
  git config --global user.name zveinn
  git config --global user.email info@sveinn.is
 	
