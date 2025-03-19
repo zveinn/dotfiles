@@ -1,22 +1,83 @@
 theme = "keyb1nd"
 
 [keys.normal]
-"S-m" = ["vsplit", "goto_definition"]
-"C-k" = "half_page_up"
-"C-j" = "half_page_down"
+
+"C-k" = ["half_page_up","align_view_center"]
+"C-j" = ["half_page_down","align_view_center"]
 
 "S-l" = "jump_view_right"
 "S-j" = "jump_view_down"
 "S-k" = "jump_view_up"
 "S-h" = "jump_view_left"
+"x" = "no_op"
+"S-v" = ["extend_to_line_bounds", "select_mode"]
+"e"= "expand_selection"
+"r" = "rename_symbol"
+"esc" = "no_op"
+s = ["goto_line_start"]
+p = "replace_with_yanked"
+f = ["select_all"]
+
+# this can't be remapped yet.
+#y = ["yank", "yank_to_clipboard"]
+
+[keys.insert]
+"esc" = ["normal_mode", ":write-all"] 
+
+
+[keys.normal.space]
+y = ["yank_to_primary_clipboard"]
+o = ["file_picker"]
+d = ["vsplit", "goto_definition"]
+c = ["changed_file_picker"]
+l = ["last_picker"]
+x = [":sh ~/.config/dotfiles/test/test"]
+h = ["hover"]
+q = ["wclose"]
+f = ["global_search"]
+#e = [":write-all"]
+s = ["workspace_symbol_picker"]
+i = ["goto_implementation"]
+e = ["diagnostics_picker"]
+
+#layer2
+space.d = ["goto_definition"]
+space.a = ["code_action"]
+space.s = ["symbol_picker"]
+space.h = ["hover"]
+space.e = ["goto_prev_diag"]
+
+#layer3
+space.space.r = [":config-reload"]
+space.space.l = [":lsp-restart"]
+space.space.q = [":write-quit-all" ]
+
+
+# no ops
+
+"Y" = "no_op"
+"'" = "no_op"
+"a" = "no_op"
+"w" = "no_op"
+
+# go to implementation
+# file symbols s-0
+# workspace symbols .. s-p
+# 
 
 [editor]
 line-number = "relative"
 soft-wrap.enable = true
 end-of-line-diagnostics = "hint" 
+idle-timeout = 1
+bufferline = "multiple"
 
 [editor.inline-diagnostics] 
 cursor-line = "error"
+
+#[editor.auto-save]
+#after-delay.enable = true
+#after-delay.timeout = "400"
 
 [editor.file-picker]
 hidden = false
