@@ -15,7 +15,7 @@ theme = "keyb1nd"
 "r" = "rename_symbol"
 "esc" = "no_op"
 s = ["goto_line_start"]
-p = "replace_with_yanked"
+p = "paste_after"
 f = ["select_all"]
 
 # this can't be remapped yet.
@@ -30,9 +30,10 @@ f = ["select_all"]
 y = ["yank_to_primary_clipboard"]
 o = ["file_picker"]
 d = ["vsplit", "goto_definition"]
-c = ["changed_file_picker"]
+p = ["changed_file_picker"]
 l = ["last_picker"]
 x = [":sh ~/.config/dotfiles/test/test"]
+c = ["toggle_comments"]
 
 h = ["hover"]
 q = ["wclose"]
@@ -74,14 +75,15 @@ space.space.q = [":write-quit-all" ]
 [editor]
 line-number = "relative"
 end-of-line-diagnostics = "hint" 
-gutters = ["spacer", "diff","spacer"]
+#gutters = ["spacer", "diff","spacer"]
+gutters = ["spacer","spacer","spacer"]
 idle-timeout = 1
 #bufferline = "multiple"
 
 [editor.inline-diagnostics] 
 cursor-line = "error"
-other-lines = "error"
-max-wrap = 100
+other-lines = "disable"
+max-wrap = 10
 prefix-len = 1
 
 [editor.lsp]
@@ -116,9 +118,9 @@ select = "bar"
 smart-case = false
 
 [editor.statusline]
-left = ["mode", "spinner", "position","file-type","file-modification-indicator", "file-name", "version-control", "diagnostics", "workspace-diagnostics"]
+left = ["spinner","file-modification-indicator", "file-name", "version-control"]
 center = []
-right = [ "selections",  "file-encoding", "file-line-ending"]
+right = [ "selections",  "file-encoding", "file-line-ending","spacer" ]
 separator = "││"
 mode.normal = "NORMAL"
 mode.insert = "INSERT"
