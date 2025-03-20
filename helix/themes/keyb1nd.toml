@@ -9,7 +9,7 @@ punctuation = "gentle_teal"         # Brackets, commas, etc.
 operator = "gentle_teal"           # +, -, ==, etc.
 special = "soft_blue"             # Special tokens
 "variable.other.member" = "soft_purple" # Struct fields
-variable = "pure_white"            # Variables
+variable = "soft_peach"            # Variables
 "variable.parameter" = { fg = "pure_white" } # Function parameters
 "variable.builtin" = "pure_white" # Built-in variables (e.g., nil, true)
 type = "soft_peach"             # Structs, interfaces, type aliases
@@ -76,6 +76,7 @@ label = "bright_orange"            # Goto labels
 "ui.menu" = { fg = "pure_white", bg = "dark_slate" }
 "ui.menu.selected" = { fg = "dark_slate", bg = "soft_cyan" }
 "ui.menu.scroll" = { fg = "light_gray", bg = "muted_gray" }
+"ui.virtual.inlay-hint" = { fg = "muted_gray"}
 
 # Diagnostics
 "diagnostic.hint" = { underline = { color = "vivid_red", style = "curl" } }
