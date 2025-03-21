@@ -76,12 +76,12 @@ space.space.q = [":write-quit-all" ]
 line-number = "relative"
 end-of-line-diagnostics = "hint" 
 #gutters = ["spacer", "diff","spacer"]
-gutters = ["spacer","spacer","spacer"]
+gutters = ["line-numbers", "spacer"]
 idle-timeout = 1
 #bufferline = "multiple"
 
 [editor.inline-diagnostics] 
-cursor-line = "error"
+cursor-line = "hint"
 other-lines = "disable"
 max-wrap = 10
 prefix-len = 1
@@ -91,6 +91,7 @@ enable = true
 display-messages = true
 display-inlay-hints = true
 snippets = true
+
 
 [editor.soft-wrap]
 enable = true
