@@ -2,15 +2,11 @@ package main
 
 import (
 	"fmt"
-	"io/fs"
 	"os"
-	"path/filepath"
 )
 
 func main() {
-	filepath.WalkDir(".", func(path string, d fs.DirEntry, err error) error {
-		fmt.Println(path)
-		return nil
-	})
+	fmt.Println(os.Args)
+	fmt.Println("this is my custom program")
 	os.Exit(0)
 }

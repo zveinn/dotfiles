@@ -41,7 +41,7 @@ f = ["global_search"]
 #e = [":write-all"]
 s = ["workspace_symbol_picker"]
 i = ["goto_implementation"]
-e = ["diagnostics_picker"]
+e = ["workspace_diagnostics_picker"]
 r = ["goto_reference"]
 #layer2
 space.d = ["goto_definition"]
@@ -52,7 +52,7 @@ space.e = ["goto_prev_diag"]
 space.l = [":sh golangci-lint run --build-tags kqueue --timeout=10m --config .golangci.yml;echo done"]
 space.n = [":new"]
 
-#space.x = ":sh %{ %{linenumber} %{filename}}"
+# space.x = ":sh %{ %{linenumber} %{filename}}"
 #space.x = ["%sh echo %{linenumber}"]
 #layer3
 space.space.r = [":config-reload"]
