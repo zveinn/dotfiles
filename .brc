@@ -1,7 +1,8 @@
 #!/bin/bash
 
-export PATH=$PATH:/usr/local/go/bin:~/go/bin
+export PATH=$PATH:/usr/local/go/bin:~/go/bin:/home/sveinn/hx
 export GOPATH=~/go
+export COLORTERM=truecolor
 bind '"\C-r":reverse-search-history'
 
 function parse_git_branch() {
@@ -46,7 +47,8 @@ alias ls="ls -laF --color=auto"
 alias lsh="ls -lahF --color=auto"
 alias ns="netstat -tulpn"
 
-alias ipt="iptables $1"
+alias ipt="sudo iptables $1"
+alias ipta="sudo iptables -L --line-numbers -n"
 
 backup-kde(){
 	cp ~/.config/plasma-org.kde.plasma.desktop-appletsrc ~/.config/dotfiles/kde-backups
@@ -58,19 +60,20 @@ backup-kde(){
 }
 
 setup-iptables(){
- iptables -F
- iptables -X
- iptables -t nat -F
- iptables -t mangle -F
+ sudo iptables -F
+ sudo iptables -X
+ sudo iptables -t nat -F
+ sudo iptables -t mangle -F
 
- iptables -P INPUT DROP
- iptables -P FORWARD DROP
- iptables -P OUTPUT ACCEPT
+ sudo iptables -P INPUT DROP
+ sudo iptables -P FORWARD DROP
+ sudo iptables -P OUTPUT ACCEPT
 
- iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
- iptables -A INPUT --src 127.0.0.1 --dst 127.0.0.1 -j ACCEPT
+ sudo iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+ sudo iptables -A INPUT --src 127.0.0.1 --dst 127.0.0.1 -j ACCEPT
  # iptables -A INPUT --src 0.0.0.0 -dport 22 -J ACCEPT
- iptables-save >> /etc/iptables/iptables.rules 
+ sudo 
+ ptables-save >> /etc/iptables/iptables.rules 
 }
 
 sync-fork(){
@@ -126,12 +129,14 @@ setup-golang() {
 	go install github.com/nametake/golangci-lint-langserver@latest
 	go install golang.org/x/tools/gopls@latest
   go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
-  go install golang.org/x/tools/cmd/goimports@latest
+ 	go install golang.org/x/tools/cmd/goimports@latest
   go install github.com/go-delve/delve/cmd/dlv@latest
+  go install github.com/jesseduffield/lazygit@latest
 }
 
 setup-non-root() {
- 	yay -S git htop wget curl xclip helix nodejs npm tmux wezterm lazygit -y
+ 	sudo apt install git htop wget curl xclip nodejs tmux podman -y
+ 	curl -fsSL https://get.pnpm.io/install.sh | sh -
 	pnpm install -g typescript-language-server typescript
 
 	ln -s ~/.config/dotfiles/helix ~/.config/helix	
@@ -141,41 +146,27 @@ setup-non-root() {
  	ln -s ~/.config/dotfiles/.brc ~/.bashrc
 }
 
-setup-nvidia(){
-	nvidia-inst --open 32
-}
-
-setup-obs(){
-	yay -S obs-studio-browser
-}
 
 setup-root(){
- pacman -S noto-fonts noto-fonts-cjk noto-fonts-emoji
- pacman -S $(pacman -Sgq nerd-fonts)	
+
+# apt install noto-fonts noto-fonts-cjk noto-fonts-emoji
+# pacman -S $(pacman -Sgq nerd-fonts)	
+
 
  cp ./iptables-restore.service /etc/systemd/system/iptables-restore.service
  systemctl enable iptables-restore.service
  systemctl start iptables-restore.service
 
  cp ./sysctl.conf /etc/sysctl.conf
- sysctl -p
+ sydo sysctl -p
 
- systemctl enabled bluetooth
- systemctl start bluetooth
-
- rm /root/.bashrc
- ln -s /home/anon/.config/dotfiles/.brc /root/.bashrc
-
- pacman -Rdd libcups kdeconnect
  systemctl disable avahi-daemon
  systemctl stop avahai-daemon
- #https://unix.stackexchange.com/a/671118
-
- # docker
- pacman -S docker
- systemctl enable docker
- systemctl start docker
- chown anon:anon /var/run/docker.sock
+ systemctl disable cups
+ systemctl stop cups
+ pkill kdeconnect
+ pkill kdeconnectd
+ apt remove cups kdeconnect
 }
 
 
@@ -196,8 +187,8 @@ alias tsmc="tmux switch -t mc"
 alias tmoveleft="tmux swap-window -t 0"
 
 
-alias h="helix -c ~/.config/dotfiles/helix/config.toml"
-alias hh="helix -c ~/.config/dotfiles/helix/config.toml ."
+alias h="hx -c ~/.config/dotfiles/helix/config.toml"
+alias hh="hx -c ~/.config/dotfiles/helix/config.toml ."
 alias hc="h ~/.config/dotfiles"
 alias hm="h ~/code/monorepo"
 alias htunnels="v ~/code/tunnels"
@@ -240,19 +231,19 @@ syncRepo() {
 
 alias l="lazygit"
 
-alias d='docker'
-alias ds='docker start'
-alias dst='docker stop'
-alias dr='docker run'
-alias drm='docker remove'
-alias dps='docker ps --all'
-alias dpsa='docker ps --all'
-alias di='docker images'
-alias drmi='docker rmi'
-alias dl='docker logs'
+alias d='podman'
+alias ds='podman start'
+alias dst='podman stop'
+alias dr='podman run'
+alias drm='podman remove'
+alias dps='podman ps --all'
+alias dpsa='podman ps --all'
+alias di='podman images'
+alias drmi='podman rmi'
+alias dl='podman logs'
 
 dex(){
-	docker exec -ti "$1" bash
+	podman exec -ti "$1" bash
 }
 
 # alias k="kubectl"
