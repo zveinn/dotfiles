@@ -35,7 +35,7 @@ l = ["last_picker"]
 x = [":sh ~/.config/dotfiles/test/test"]
 c = ["toggle_comments"]
 
-h = ["hover"]
+h = ":toggle inline-diagnostics.cursor-line hint disable"
 q = ["wclose"]
 f = ["global_search"]
 #e = [":write-all"]
@@ -48,6 +48,7 @@ space.d = ["goto_definition"]
 space.a = ["code_action"]
 space.s = ["symbol_picker"]
 space.h = ["hover"]
+# space.h = [":toggle lsp.display-inlay-hints"]
 space.e = ["goto_prev_diag"]
 space.l = [":sh golangci-lint run --build-tags kqueue --timeout=10m --config .golangci.yml;echo done"]
 space.n = [":new"]
@@ -81,7 +82,7 @@ idle-timeout = 1
 #bufferline = "multiple"
 
 [editor.inline-diagnostics] 
-cursor-line = "hint"
+cursor-line = "disable"
 other-lines = "disable"
 max-wrap = 10
 prefix-len = 1
@@ -89,7 +90,7 @@ prefix-len = 1
 [editor.lsp]
 enable = true
 display-messages = true
-display-inlay-hints = true
+display-inlay-hints = false
 snippets = true
 
 

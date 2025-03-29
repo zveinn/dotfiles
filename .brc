@@ -21,7 +21,7 @@ function get_command_number() {
 
 
 # pnpm
-export PNPM_HOME="/home/anon/.local/share/pnpm"
+export PNPM_HOME="/home/sveinn/.local/share/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
@@ -32,6 +32,7 @@ esac
 alias golint="golangci-lint run --build-tags kqueue --timeout=10m --config .golangci.yml"
 
 export PS1='\n \033[0m$(whoami) \033[35m${PWD} \033[36m$(parse_git_branch)\033[0m\n  '
+#export PS1='\033[0m$(whoami) \033[35m${PWD} \033[36m$(parse_git_branch)\033[0m '
 
 shopt -s expand_aliases
 alias s="history | grep $1"
@@ -45,6 +46,7 @@ alias .....="cd ..;cd ..;cd ..;cd .."
 alias ......="cd ..;cd ..;cd ..;cd ..;cd .."
 alias ls="ls -laF --color=auto"
 alias lsh="ls -lahF --color=auto"
+alias lsf="ls | grep $1"
 alias ns="netstat -tulpn"
 
 alias ipt="sudo iptables $1"
@@ -132,6 +134,8 @@ setup-golang() {
  	go install golang.org/x/tools/cmd/goimports@latest
   go install github.com/go-delve/delve/cmd/dlv@latest
   go install github.com/jesseduffield/lazygit@latest
+  go install github.com/tinylib/msgp@latest
+  go install golang.org/x/tools/cmd/stringer@latest
 }
 
 setup-non-root() {
