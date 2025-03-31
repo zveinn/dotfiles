@@ -9,7 +9,7 @@ punctuation = "gentle_teal"         # Brackets, commas, etc.
 operator = "gentle_teal"           # +, -, ==, etc.
 special = "soft_blue"             # Special tokens
 "variable.other.member" = "soft_purple" # Struct fields
-variable = "selection_gray"            # Variables
+variable = "muted_gray"            # Variables
 "variable.parameter" = { fg = "pure_white" } # Function parameters
 "variable.builtin" = "pure_white" # Built-in variables (e.g., nil, true)
 type = "soft_peach"             # Structs, interfaces, type aliases
