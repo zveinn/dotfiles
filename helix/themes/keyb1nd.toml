@@ -9,7 +9,7 @@ punctuation = "gentle_teal"         # Brackets, commas, etc.
 operator = "gentle_teal"           # +, -, ==, etc.
 special = "soft_blue"             # Special tokens
 "variable.other.member" = "soft_purple" # Struct fields
-variable = "soft_peach"            # Variables
+variable = "selection_gray"            # Variables
 "variable.parameter" = { fg = "pure_white" } # Function parameters
 "variable.builtin" = "pure_white" # Built-in variables (e.g., nil, true)
 type = "soft_peach"             # Structs, interfaces, type aliases
@@ -44,7 +44,8 @@ label = "bright_orange"            # Goto labels
 "diff.delta" = "#FFB300" # Amber for changes
 
 # UI Elements
-"ui.background" = { bg = "near_black" } # Near-black background
+#"ui.background" = { bg = "near_black" } # Near-black background
+"ui.background" = {}
 "ui.background.separator" = { fg = "muted_gray" }
 "ui.linenr" = { fg = "muted_gray" }
 "ui.linenr.selected" = { fg = "soft_purple" }
