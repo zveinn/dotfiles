@@ -9,8 +9,10 @@ language-servers = [ "gopls", "golangci-lint-lsp" ]
 [language-server.golangci-lint-lsp]
 command = "golangci-lint-langserver"
 
+#[language-server.golangci-lint-lsp.config]
+#command = ["golangci-lint", "run", "--output.json.path", "stdout", "--issues-exit-code=1"]
 [language-server.golangci-lint-lsp.config]
-command = ["golangci-lint", "run", "--output.json.path", "stdout", "--issues-exit-code=1"]
+command = ["golangci-lint", "run", "--output.json.path", "stdout", "--show-stats=false", "--issues-exit-code=1"]
 
 [language-server.eslint]
 command = "vscode-eslint-language-server"

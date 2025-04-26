@@ -26,6 +26,7 @@ f = ["select_all"]
 "esc" = ["normal_mode", ":write-all"] 
 
 
+#[keys.normal.space]
 [keys.normal.space]
 y = ["yank_to_primary_clipboard"]
 o = ["file_picker"]
