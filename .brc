@@ -46,7 +46,21 @@ alias .....="cd ..;cd ..;cd ..;cd .."
 alias ......="cd ..;cd ..;cd ..;cd ..;cd .."
 alias ls="ls -laF --color=auto"
 alias lsh="ls -lahF --color=auto"
-alias lsf="ls | grep $1"
+lss(){
+    if [ -z "$1" ]; then
+        echo "Error: Please provide a directory path"
+        return 1
+    fi
+    if [ -z "$2" ]; then
+        echo "Error: Please provide a search pattern"
+        return 1
+    fi
+    if [ ! -d "$1" ]; then
+        echo "Error: '$1' is not a valid directory"
+        return 1
+    fi
+    ls "$1" | grep "$2"
+}
 alias ns="netstat -tulpn"
 
 alias ipt="sudo iptables $1"
