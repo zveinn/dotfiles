@@ -2,9 +2,12 @@
 name = "go"
 roots = ["go.work", "go.mod"]
 auto-format = true
-formatter = [  "goimports" ]
+formatter = [ "gopls", "goimports" ]
 comment-token = "//"
 language-servers = [ "gopls", "golangci-lint-lsp" ]
+
+[language-server.gopls.config]
+"formatting.gofumpt" = true
 
 [language-server.golangci-lint-lsp]
 command = "golangci-lint-langserver"
