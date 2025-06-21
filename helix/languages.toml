@@ -2,7 +2,6 @@
 name = "go"
 roots = ["go.work", "go.mod"]
 auto-format = true
-formatter = [ "gopls" ]
 comment-token = "//"
 language-servers = [ "gopls", "golangci-lint-lsp" ]
 
