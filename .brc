@@ -182,15 +182,19 @@ setup-root(){
  systemctl start iptables-restore.service
 
  cp ./sysctl.conf /etc/sysctl.conf
+ sysctl -w net.ipv6.conf.all.disable_ipv6=1
+ sysctl -w net.ipv6.conf.default.disable_ipv6=1
  sydo sysctl -p
 
+ systemctl disable systemd-resolved
+ systemctl stop systemd-resolved
  systemctl disable avahi-daemon
  systemctl stop avahai-daemon
  systemctl disable cups
  systemctl stop cups
  pkill kdeconnect
  pkill kdeconnectd
- apt remove cups kdeconnect
+ apt remove cups kdeconnect systemd-resolved avahi-daemon
 }
 
 
