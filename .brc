@@ -38,8 +38,6 @@ export PS1='\n \033[0m$(whoami) \033[35m${PWD} \033[36m$(parse_git_branch)\033[0
 alias web="ssh -i /home/sveinn/.ssh/1984 root@195.246.231.55"
 alias web-update="scp -r -i /home/sveinn/.ssh/1984 /home/sveinn/code/website/dist/* root@195.246.231.55:/var/www/web"
 
-
-
 shopt -s expand_aliases
 alias s="history | grep $1"
 alias r="source ~/.bashrc"
@@ -175,7 +173,6 @@ setup-root(){
 
 # apt install noto-fonts noto-fonts-cjk noto-fonts-emoji
 # pacman -S $(pacman -Sgq nerd-fonts)	
-
 
  cp ./iptables-restore.service /etc/systemd/system/iptables-restore.service
  systemctl enable iptables-restore.service
