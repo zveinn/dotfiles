@@ -3,6 +3,7 @@
 export PATH=$PATH:/usr/local/go/bin:~/go/bin:/home/sveinn/hx
 export GOPATH=~/go
 export COLORTERM=truecolor
+source "$HOME/.cargo/env"
 bind '"\C-r":reverse-search-history'
 
 function parse_git_branch() {
@@ -34,9 +35,15 @@ alias golint="golangci-lint run --build-tags kqueue --timeout=10m --config .gola
 export PS1='\n \033[0m$(whoami) \033[35m${PWD} \033[36m$(parse_git_branch)\033[0m\n  '
 #export PS1='\033[0m$(whoami) \033[35m${PWD} \033[36m$(parse_git_branch)\033[0m '
 
+alias web="ssh -i /home/sveinn/.ssh/1984 root@195.246.231.55"
+alias web-update="scp -r -i /home/sveinn/.ssh/1984 /home/sveinn/code/website/dist/* root@195.246.231.55:/var/www/web"
+
+
+
 shopt -s expand_aliases
 alias s="history | grep $1"
 alias r="source ~/.bashrc"
+alias rr="reset"
 alias c="clear"
 alias e="exit"
 alias ..="cd .."
@@ -89,7 +96,7 @@ setup-iptables(){
  sudo iptables -A INPUT --src 127.0.0.1 --dst 127.0.0.1 -j ACCEPT
  # iptables -A INPUT --src 0.0.0.0 -dport 22 -J ACCEPT
  sudo 
- ptables-save >> /etc/iptables/iptables.rules 
+ iptables-save >> /etc/iptables/iptables.rules 
 }
 
 sync-fork(){
