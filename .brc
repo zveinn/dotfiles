@@ -95,8 +95,7 @@ setup-iptables(){
  sudo iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
  sudo iptables -A INPUT --src 127.0.0.1 --dst 127.0.0.1 -j ACCEPT
  # iptables -A INPUT --src 0.0.0.0 -dport 22 -J ACCEPT
- sudo 
- iptables-save >> /etc/iptables/iptables.rules 
+ sudo iptables-save >> /etc/iptables/iptables.rules 
 }
 
 sync-fork(){
