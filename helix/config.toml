@@ -23,7 +23,8 @@ f = ["select_all"]
 
 
 [keys.insert]
-"esc" = ["normal_mode", ":write-all"] 
+"esc" = ["normal_mode"] 
+
 
 
 #[keys.normal.space]
@@ -53,6 +54,7 @@ space.h = ["hover"]
 space.e = ["goto_prev_diag"]
 space.l = [":sh golangci-lint run --build-tags kqueue --timeout=10m --config .golangci.yml;echo done"]
 space.n = [":new"]
+space.r = [":reload-all"]
 
 # space.x = ":sh %{ %{linenumber} %{filename}}"
 #space.x = ["%sh echo %{linenumber}"]
