@@ -96,6 +96,11 @@ setup-iptables(){
  sudo iptables-save >> /etc/iptables/iptables.rules 
 }
 
+clone-pr() {
+	git fetch origin pull/$1/head:pr-$1
+	git checkout pr-$1
+}
+
 sync-fork(){
 	cd ~/code/$1
 	git pull
