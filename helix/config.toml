@@ -36,6 +36,7 @@ p = ["changed_file_picker"]
 l = ["last_picker"]
 x = [":sh ~/.config/dotfiles/test/test"]
 c = ["toggle_comments"]
+# n = ":sh echo %{buffer_name}"
 
 h = ":toggle inline-diagnostics.cursor-line hint disable"
 q = ["wclose"]

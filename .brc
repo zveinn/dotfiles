@@ -96,18 +96,30 @@ setup-iptables(){
  sudo iptables-save >> /etc/iptables/iptables.rules 
 }
 
-clone-pr() {
+gx-pr() {
 	git fetch origin pull/$1/head:pr-$1
 	git checkout pr-$1
 }
 
-sync-fork(){
+gx-sync(){
 	cd ~/code/$1
 	git pull
 	git push fork
 	cd ~/code/$1-fork
 	git pull
 }
+
+alias gx-clone='gClone'
+gClone() {
+  git clone git@github.com:$1
+}
+
+alias gx-new-branch="gBranch"
+gBranch(){
+	git branch $1
+	git checkout $1
+}
+
 
 setup-repos(){
  git config --global --add url."git@github.com:".insteadOf "https://github.com/"
@@ -239,24 +251,6 @@ alias gpush="git push"
 alias gpull="git push"
 alias gs="git status"
 alias gl="git log"
-
-alias gc='gClone'
-gClone() {
-  git clone git@github.com:$1
-}
-
-alias gb="gBranch"
-gBranch(){
-	git branch $1
-	git checkout $1
-}
-
-# alias grs="gh repo sync $1 -b master"
-alias grs="syncRepo"
-syncRepo() {
-	gh repo sync "$1" -b "master"
-	echo "do not forget to git pull"
-}
 
 
 alias l="lazygit"
