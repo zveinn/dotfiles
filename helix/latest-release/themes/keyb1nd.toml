@@ -1,0 +1,114 @@
+# Core syntax elements
+attribute = "soft_purple"          # Annotations or attributes
+keyword = "gentle_teal"            # General keywords (if, for, return)
+"keyword.directive" = "pure_white" # Preprocessor-like (though rare in Go)
+"keyword.function" = "pure_white" # func keyword for declarations
+namespace = "soft_purple"          # Package names
+punctuation = "gentle_teal"         # Brackets, commas, etc.
+"punctuation.delimiter" = "muted_gray" # Semicolons, dots
+operator = "gentle_teal"           # +, -, ==, etc.
+special = "soft_blue"             # Special tokens
+"variable.other.member" = "soft_purple" # Struct fields
+variable = "muted_gray"            # Variables
+"variable.parameter" = { fg = "pure_white" } # Function parameters
+"variable.builtin" = "pure_white" # Built-in variables (e.g., nil, true)
+type = "soft_peach"             # Structs, interfaces, type aliases
+"type.builtin" = "soft_peach"   # Built-in types (int, string)
+constructor = "soft_peach"        # Constructor-like calls (e.g., make, new)
+function = "soft_blue"            # User-defined function/method calls in white
+"function.macro" = "soft_blue"   # Rare in Go, but for consistency
+"function.builtin" = "soft_blue"  # Built-in funcs (fmt.Printf, log.Println) in white
+tag = "gentle_teal"                # Tags (e.g., in struct literals)
+comment = "muted_gray"            # Comments
+constant = "soft_peach"            # Constants
+"constant.builtin" = "soft_peach"  # Built-in constants (iota)
+string = "lime_green"              # Strings
+"constant.numeric" = "soft_blue"   # Numbers
+"constant.character.escape" = "soft_blue" # Escape sequences
+label = "bright_orange"            # Goto labels
+
+
+
+# Markup (e.g., docs)
+"markup.heading" = "soft_purple"
+"markup.bold" = { modifiers = ["bold"] }
+"markup.italic" = { modifiers = ["italic"] }
+"markup.strikethrough" = { modifiers = ["crossed_out"] }
+"markup.link.url" = { fg = "soft_cyan", modifiers = ["underlined"] }
+"markup.link.text" = "pure_white"
+"markup.raw" = "pure_white"
+
+# Diff
+"diff.plus" = "#4CAF50"  # Green for additions
+"diff.minus" = "#F44336" # Red for deletions
+"diff.delta" = "#FFB300" # Amber for changes
+
+# UI Elements
+#"ui.background" = { bg = "near_black" } # Near-black background
+"ui.background" = {}
+"ui.background.separator" = { fg = "muted_gray" }
+"ui.linenr" = { fg = "muted_gray" }
+"ui.linenr.selected" = { fg = "soft_purple" }
+"ui.statusline" = { fg = "pure_white", bg = "dark_slate" }
+"ui.statusline.inactive" = { fg = "light_gray", bg = "dark_slate" }
+"ui.popup" = { bg = "dark_slate" }
+"ui.window" = { fg = "dark_slate" }
+"ui.help" = { bg = "dark_slate", fg = "pure_white" }
+"ui.text" = "pure_white"           # General UI text
+"ui.text.focus" = "pure_white"
+"ui.text.inactive" = "muted_gray"
+"ui.text.directory" = { fg = "soft_purple" }
+"ui.virtual" = { fg = "muted_gray" }
+"ui.virtual.ruler" = { bg = "dark_slate" }
+"ui.virtual.jump-label" = { fg = "vivid_pink", modifiers = ["bold"] }
+"ui.virtual.indent-guide" = { fg = "muted_gray" }
+
+"ui.selection" = { bg = "selection_gray" }
+"ui.selection.primary" = { bg = "selection_gray" }
+
+
+
+
+"ui.cursorline.primary" = { bg = "dark_slate" }
+"ui.highlight" = { bg = "dark_slate" }
+"ui.highlight.frameline" = { bg = "muted_gray" }
+"ui.debug" = { fg = "soft_orange" }
+"ui.debug.breakpoint" = { fg = "bright_orange" }
+"ui.menu" = { fg = "pure_white", bg = "dark_slate" }
+"ui.menu.selected" = { fg = "dark_slate", bg = "soft_cyan" }
+"ui.menu.scroll" = { fg = "light_gray", bg = "muted_gray" }
+"ui.virtual.inlay-hint" = { fg = "muted_gray"}
+
+# Diagnostics
+"diagnostic.hint" = { underline = { color = "vivid_red", style = "curl" } }
+"diagnostic.info" = { underline = { color = "vivid_red", style = "curl" } }
+"diagnostic.warning" = { underline = { color = "vivid_red", style = "curl" } }
+"diagnostic.error" = { underline = { color = "vivid_red", style = "curl" } }
+"diagnostic.unnecessary" = { modifiers = ["dim"] }
+"diagnostic.deprecated" = { modifiers = ["crossed_out"] }
+
+warning = "soft_orange"
+error = "vivid_red"
+info = "gentle_teal"
+hint = "soft_cyan"
+
+[palette]
+pure_white = "#c0c0c0"      # Clean white for UI, functions, and imports
+near_black = "#0c0c0c"      # Near-black background (not pure #000000)
+dark_slate = "#2A2A3A"      # Slightly lighter UI elements
+selection_gray = "#3A3A4A"  # Subtle selection highlight
+muted_gray = "#6A6A7A"      # Low-contrast gray for punctuation/UI
+light_gray = "#A0A0B0"      # Variables and inactive text
+soft_purple = "#C792EA"     # Package names, attributes
+gentle_teal = "#4EC9B0"     # Keywords, built-ins
+bright_cyan = "#56B6C2"     # func keyword
+soft_blue = "#82AAFF"       # Struct fields, cursor
+golden_yellow = "#E5C07B"   # Types
+soft_orange = "#FFAB70"     # Operators, warnings
+bright_orange = "#FF8C42"   # Goto labels, breakpoints
+vivid_pink = "#FF79C6"      # Special tokens, jump labels
+muted_green = "#7A9A7A"     # Comments
+lime_green = "#95E19A"      # Strings
+soft_peach = "#FFCC99"      # Constants
+soft_cyan = "#89DDFF"       # Numbers, hints
+vivid_red = "#FF5555"

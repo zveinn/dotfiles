@@ -229,6 +229,7 @@ alias tsmc="tmux switch -t mc"
 alias tmoveleft="tmux swap-window -t 0"
 
 
+alias ht="hx2 -c ~/hx2/config.toml"
 alias h="hx -c ~/.config/dotfiles/helix/config.toml"
 alias hh="hx -c ~/.config/dotfiles/helix/config.toml ."
 alias hc="h ~/.config/dotfiles"
