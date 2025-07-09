@@ -39,32 +39,26 @@ alias web="ssh -i /home/sveinn/.ssh/1984 root@195.246.231.55"
 alias web-update="scp -r -i /home/sveinn/.ssh/1984 /home/sveinn/code/website/dist/* root@195.246.231.55:/var/www/web"
 
 shopt -s expand_aliases
-alias s="history | grep $1"
+
+alias s="ss"
+ss(){
+	history | grep $1
+}
+
 alias r="source ~/.bashrc"
 alias rr="reset"
 alias c="clear"
 alias e="exit"
-alias ..="cd .."
-alias ...="cd ..;cd .."
-alias ....="cd ..;cd ..;cd .."
-alias .....="cd ..;cd ..;cd ..;cd .."
-alias ......="cd ..;cd ..;cd ..;cd ..;cd .."
+alias .="cd .."
+alias ..="cd ..;cd .."
+alias ...="cd ..;cd ..;cd .."
+alias ....="cd ..;cd ..;cd ..;cd .."
+alias .....="cd ..;cd ..;cd ..;cd ..;cd .."
+alias ......="cd ..;cd ..;cd ..;cd ..;cd ..;cd .."
 alias ls="ls -laF --color=auto"
 alias lsh="ls -lahF --color=auto"
 lss(){
-    if [ -z "$1" ]; then
-        echo "Error: Please provide a directory path"
-        return 1
-    fi
-    if [ -z "$2" ]; then
-        echo "Error: Please provide a search pattern"
-        return 1
-    fi
-    if [ ! -d "$1" ]; then
-        echo "Error: '$1' is not a valid directory"
-        return 1
-    fi
-    ls "$1" | grep "$2"
+    ls -lahF | grep "$1"
 }
 alias ns="netstat -tulpn"
 
@@ -219,13 +213,6 @@ alias ta="tmux attach -d -t $1"
 alias tl="tmux ls"
 alias tnw="tmux new-window;tmux rename-window $1"
 alias ts="tmux switch -t $1"
-alias tsc="tmux switch -t config"
-alias tst="tmux switch -t tunnels"
-alias tsm="tmux switch -t monorepo"
-alias tse="tmux switch -t eos"
-alias tsd="tmux switch -t dplz"
-alias tsb="tmux switch -t bluam"
-alias tsmc="tmux switch -t mc"
 alias tmoveleft="tmux swap-window -t 0"
 
 
