@@ -40,6 +40,7 @@ l = ["file_explorer"]
 c = ["toggle_comments"]
 # n = ":sh echo %{buffer_name}"
 # x = ':sh /home/sveinn/.config/dotfiles/test/test %sh{pwd} %{cursor_line} %{cursor_column} %{buffer_name} %{language} %{selection_line_start} %{selection_line_end} %{selection}'
+b = ":echo %sh{git blame -L %{cursor_line},+1 %{buffer_name}}"
 
 h = ":toggle inline-diagnostics.cursor-line hint disable"
 q = ["wclose"]
