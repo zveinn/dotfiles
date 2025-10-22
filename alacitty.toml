@@ -1,0 +1,69 @@
+# place in AppData 
+[window]
+padding.x = 0
+padding.y = 0
+opacity = 1          # Slight transparency for modern look
+dynamic_padding = true  # Adjust padding dynamically
+decorations = "Buttonless"  # Clean look without title bar buttons
+startup_mode = "Maximized"  # Start maximized for better usability
+
+[font]
+size = 12.0
+normal.family = "Hurmit Nerd Font Mono"
+normal.style = "Bold"
+bold.family = "Hurmit Nerd Font"
+bold.style = "Bold"
+italic.family = "Hurmit Nerd Font"
+italic.style = "Italic"
+offset.x = 1
+offset.y = -6
+
+[colors.primary]
+background = "#000000"  # Pure black background
+foreground = "#b3b3b3"  # White foreground for high contrast
+
+[colors.normal]
+black = "#000000"
+red = "#FF5555"
+green = "#55FF55"
+yellow = "#FFFF55"
+blue = "#5555FF"
+magenta = "#FF55FF"
+cyan = "#55FFFF"
+white = "#BBBBBB"
+
+[colors.bright]
+black = "#555555"
+red = "#FF5555"
+green = "#55FF55"
+yellow = "#FFFF55"
+blue = "#5555FF"
+magenta = "#FF55FF"
+cyan = "#55FFFF"
+white = "#ffffff"
+
+[cursor]
+style.shape = "Underline"
+style.blinking = "On"
+blink_interval = 750
+unfocused_hollow = true
+
+[[keyboard.bindings]]
+key = "C"
+mods = "Control"
+action = "Copy"
+
+[[keyboard.bindings]]
+key = "V"
+mods = "Control"
+action = "Paste"
+
+[[keyboard.bindings]]
+key = "Plus"
+mods = "Control"
+action = "IncreaseFontSize"
+
+[[keyboard.bindings]]
+key = "Minus"
+mods = "Control"
+action = "DecreaseFontSize"
