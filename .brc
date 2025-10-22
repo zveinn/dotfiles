@@ -229,19 +229,12 @@ sync-helix(){
 	ln -s ~/.config/dotfiles/helix ~/.config/helix	
 }
 
-alias cdc="cd ~/.config/dotfiles"
-alias cdm="cd ~/code/monorepo"
-alias cdt="cd ~/code/tunnels"
-alias cdssh="cd ~/.ssh"
-alias cdgo="cd ~/code/"
-
 alias gaa="git add --all"
 alias gca="git commit -am $1"
 alias gpush="git push"
 alias gpull="git push"
 alias gs="git status"
 alias gl="git log"
-
 
 alias l="lazygit"
 
@@ -288,7 +281,6 @@ dex(){
 # 	echo "=============================================================="
 # }
 #
-
 
 
 export NVM_DIR="$HOME/.nvm"
