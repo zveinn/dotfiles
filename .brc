@@ -1,10 +1,9 @@
 #!/bin/bash
 
-export PATH=$PATH:/usr/local/go/bin:~/go/bin:/home/sveinn/hx
+export PATH=$PATH:/usr/local/go/bin:~/go/bin
 export PATH="$HOME/.local/bin:$PATH"
 export GOPATH=~/go
 export COLORTERM=truecolor
-source "$HOME/.cargo/env"
 #bind '"\C-r":reverse-search-history'
 
 function parse_git_branch() {
@@ -33,7 +32,13 @@ esac
 
 alias golint="go install tool;gofumpt -w .;go generate ./...;pkill golangci; golangci-lint run --fix --build-tags kqueue --timeout=10m --config .golangci.yml"
 
-export PS1='\n \033[0m$(whoami) \033[35m${PWD} \033[36m$(parse_git_branch)\033[0m\n  '
+
+tmux_session_name() {
+    if [ -n "$TMUX" ]; then
+        tmux display-message -p '#S'
+    fi
+}
+export PS1='\n \033[0m$(whoami) [\033[32m$(tmux_session_name)\033[0m] \033[35m${PWD} \033[36m$(parse_git_branch)\033[0m \n '
 #export PS1='\033[0m$(whoami) \033[35m${PWD} \033[36m$(parse_git_branch)\033[0m '
 
 # website server, it's fine to save this IP here
@@ -52,7 +57,7 @@ pss(){
 	ps aux | grep $1
 }
 
-alias r="source ~/.bashrc"
+alias r="source /home/sveinn/code/dotfiles/.brc"
 alias rr="reset"
 alias c="clear"
 alias e="exit"
@@ -79,13 +84,16 @@ setup-iptables(){
  sudo iptables -t nat -F
  sudo iptables -t mangle -F
 
+
+ sudo iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+ sudo iptables -A INPUT --src 127.0.0.1 --dst 127.0.0.1 -j ACCEPT
+
  sudo iptables -P INPUT DROP
  sudo iptables -P FORWARD DROP
  sudo iptables -P OUTPUT ACCEPT
 
- sudo iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
- sudo iptables -A INPUT --src 127.0.0.1 --dst 127.0.0.1 -j ACCEPT
- # iptables -A INPUT --src 0.0.0.0 -dport 22 -J ACCEPT
+ # allow ssh from main pc
+ sudo iptables -A INPUT --src 192.168.1.19 -p tcp --dport 22 -j ACCEPT
  sudo iptables-save >> /etc/iptables/iptables.rules 
 }
 
@@ -134,9 +142,17 @@ setup-repos(){
  git clone git@github.com:zveinn/eos eos-fork
  git clone git@github.com:zveinn/ec ec-fork
 
+ git clone git@github.com:zveinn/tools
+ git clone git@github.com:zveinn/github-feek
+ git clone git@github.com:zveinn/hdnfs
+ git clone git@github.com:zveinn/parser
+ git clone git@github.com:zveinn/dplz
+
  git clone git@github.com:tunnels-is/tunnels
- git clone git@github.com:tunnels-is/monorepo
  git clone git@github.com:tunnels-is/devops
+ git clone git@github.com:tunnels-is/web
+ git clone git@github.com:tunnels-is/docs
+
  git clone git@github.com:n00bady/bluam
 
  cd ~/code/ec
@@ -153,9 +169,9 @@ setup-repos(){
 }
 
 setup-golang() {
-	wget https://go.dev/dl/go1.24.1.linux-amd64.tar.gz
-	rm -rf /usr/local/go && tar -C /usr/local -xzf go1.24.1.linux-amd64.tar.gz
-	rm go1.24.1.linux-amd64.tar.gz
+	wget https://go.dev/dl/go1.25.3.linux-amd64.tar.gz
+	rm -rf /usr/local/go && tar -C /usr/local -xzf go1.25.3.linux-amd64.tar.gz
+	rm go1.25.3.linux-amd64.tar.gz
 	go install github.com/nametake/golangci-lint-langserver@latest
 	go install golang.org/x/tools/gopls@latest
   go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
@@ -167,46 +183,39 @@ setup-golang() {
 }
 
 setup-non-root() {
- 	sudo apt install git htop wget curl xclip nodejs tmux podman -y
+ 	sudo pacman -S git htop wget curl xclip tmux podman net-utils bind -y
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
  	curl -fsSL https://get.pnpm.io/install.sh | sh -
 	pnpm install -g typescript-language-server typescript
 
-	ln -s ~/.config/dotfiles/helix ~/.config/helix	
-	ln -s ~/.config/dotfiles/.wezterm.lua  ~/.wezterm.lua	
-	ln -s ~/.config/dotfiles/.tmux.conf ~/.tmux.conf
+	ln -s ~/code/dotfiles/helix ~/.config/helix	
+	ln -s ~/code/dotfiles/.tmux.conf ~/.config/tmux/.tmux.conf
 	rm ~/.bashrc
- 	ln -s ~/.config/dotfiles/.brc ~/.bashrc
+ 	ln -s ~/code/dotfiles/.brc ~/.bashrc
+
+ 	mkdir -p ~/code/
+ 	cd ~/code
+
+ 	git clone https://aur.archlinux.org/yay.git
+ 	makepgk -si
 }
 
 
+# SYSTEM 76: https://support.system76.com/articles/system76-driver/
+# COSMIC: git@github.com:zveinn/cosmic
 setup-root(){
-
-# apt install noto-fonts noto-fonts-cjk noto-fonts-emoji
-# pacman -S $(pacman -Sgq nerd-fonts)	
-
- cp ./iptables-restore.service /etc/systemd/system/iptables-restore.service
- systemctl enable iptables-restore.service
- systemctl start iptables-restore.service
-
- cp ./sysctl.conf /etc/sysctl.conf
+ systemctl disable systemd-resolved
+ systemctl stop systemd-resolved
+ systemctl mask systemd-resolved
  sysctl -w net.ipv6.conf.all.disable_ipv6=1
  sysctl -w net.ipv6.conf.default.disable_ipv6=1
  sydo sysctl -p
-
- systemctl disable systemd-resolved
- systemctl stop systemd-resolved
- systemctl disable avahi-daemon
- systemctl stop avahai-daemon
- systemctl disable cups
- systemctl stop cups
- pkill kdeconnect
- pkill kdeconnectd
- apt remove cups kdeconnect systemd-resolved avahi-daemon
+ systemctl enable iptables
 }
 
 
 alias tn="tmux new -s $1"
-alias tr="tmux source ~/.tmux.conf"
+alias tr="tmux source /home/sveinn/code/dotfiles/.tmux.conf"
 alias td="tmux detach"
 alias ta="tmux attach -d -t $1"
 alias tl="tmux ls"
@@ -214,13 +223,7 @@ alias tnw="tmux new-window;tmux rename-window $1"
 alias ts="tmux switch -t $1"
 alias tmoveleft="tmux swap-window -t 0"
 
-
-alias ht="hx2 -c ~/hx2/config.toml"
-alias h="hx -c ~/.config/dotfiles/helix/config.toml"
-alias hh="hx -c ~/.config/dotfiles/helix/config.toml ."
-alias hc="h ~/.config/dotfiles"
-alias hm="h ~/code/monorepo"
-alias htunnels="v ~/code/tunnels"
+alias h="helix -c ~/code/dotfiles/helix/config.toml"
 
 sync-helix(){
 	ln -s ~/.config/dotfiles/helix ~/.config/helix	
