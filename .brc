@@ -38,7 +38,8 @@ tmux_session_name() {
         tmux display-message -p '#S'
     fi
 }
-export PS1='\n \033[0m$(whoami) [\033[32m$(tmux_session_name)\033[0m] \033[35m${PWD} \033[36m$(parse_git_branch)\033[0m \n '
+#export PS1='\n \033[0m$(whoami) [\033[32m$(tmux_session_name)\033[0m] \033[35m${PWD} \033[36m$(parse_git_branch)\033[0m \n '
+export PS1='\n\033[0m$(whoami)\033[32m$(tmux_session_name)\033[36m$(parse_git_branch)\033[35m${PWD}\033[0m \033[4 q '
 #export PS1='\033[0m$(whoami) \033[35m${PWD} \033[36m$(parse_git_branch)\033[0m '
 
 # website server, it's fine to save this IP here
