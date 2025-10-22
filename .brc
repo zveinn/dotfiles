@@ -1,10 +1,11 @@
 #!/bin/bash
 
 export PATH=$PATH:/usr/local/go/bin:~/go/bin:/home/sveinn/hx
+export PATH="$HOME/.local/bin:$PATH"
 export GOPATH=~/go
 export COLORTERM=truecolor
 source "$HOME/.cargo/env"
-bind '"\C-r":reverse-search-history'
+#bind '"\C-r":reverse-search-history'
 
 function parse_git_branch() {
   git_branch=$(git branch 2> /dev/null --show-current)
@@ -30,19 +31,25 @@ esac
 # pnpm end
 #
 
-alias golint="golangci-lint run --build-tags kqueue --timeout=10m --config .golangci.yml"
+alias golint="go install tool;gofumpt -w .;go generate ./...;pkill golangci; golangci-lint run --fix --build-tags kqueue --timeout=10m --config .golangci.yml"
 
 export PS1='\n \033[0m$(whoami) \033[35m${PWD} \033[36m$(parse_git_branch)\033[0m\n  '
 #export PS1='\033[0m$(whoami) \033[35m${PWD} \033[36m$(parse_git_branch)\033[0m '
 
+# website server, it's fine to save this IP here
 alias web="ssh -i /home/sveinn/.ssh/1984 root@195.246.231.55"
 alias web-update="scp -r -i /home/sveinn/.ssh/1984 /home/sveinn/code/website/dist/* root@195.246.231.55:/var/www/web"
+alias web-update-dev="scp -r -i /home/sveinn/.ssh/1984 /home/sveinn/code/website-new/dist/* root@195.246.231.55:/var/www/dev"
+alias web-docs-update="scp -r -i /home/sveinn/.ssh/1984 /home/sveinn/code/tunnels-docs/build/client/* root@195.246.231.55:/var/www/docs"
 
 shopt -s expand_aliases
 
 alias s="ss"
 ss(){
 	history | grep $1
+}
+pss(){
+	ps aux | grep $1
 }
 
 alias r="source ~/.bashrc"
@@ -65,14 +72,6 @@ alias ns="netstat -tulpn"
 alias ipt="sudo iptables $1"
 alias ipta="sudo iptables -L --line-numbers -n"
 
-backup-kde(){
-	cp ~/.config/plasma-org.kde.plasma.desktop-appletsrc ~/.config/dotfiles/kde-backups
- 	cp ~/.config/plasmashellrc ~/.config/dotfiles/kde-backups
-	cp ~/.config/kwinrc ~/.config/dotfiles/kde-backups
-	cp ~/.config/kdeglobals ~/.config/dotfiles/kde-backups
-  cp ~/.config/dolphinrc ~/.config/dotfiles/kde-backups		
-  cp ~/.config/kglobalshortcutsrc ~/.config/dotfiles/kde-backups		
-}
 
 setup-iptables(){
  sudo iptables -F
@@ -288,3 +287,7 @@ dex(){
 #
 
 
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
