@@ -8,6 +8,8 @@ export PATH=$PATH:/usr/local/go/bin:~/go/bin
 export PATH="$HOME/.local/bin:$PATH"
 export GOPATH=~/go
 export COLORTERM=truecolor
+
+
 source ~/.secrets/secrets.sh
 #bind '"\C-r":reverse-search-history'
 
@@ -33,7 +35,7 @@ tmux_session_name() {
     fi
 }
 #export PS1='\n \033[0m$(whoami) [\033[32m$(tmux_session_name)\033[0m] \033[35m${PWD} \033[36m$(parse_git_branch)\033[0m \n '
-export PS1='\n\033[0m$(whoami) \033[34m💀 \033[32m$(tmux_session_name)\033[34m 💀 \033[0m${PWD}/\033[34m$(parse_git_branch)\033[0m\n \033[4 q'
+export PS1='\n\033[0m$(whoami) \033[34m💀 \033[32m$(tmux_session_name)\033[34m 💀 \033[0m${PWD}/\033[34m$(parse_git_branch)\033[0m >'
 
 # website server, it's fine to save this IP here
 alias web="ssh -i /home/sveinn/.ssh/1984 root@195.246.231.55"
@@ -59,10 +61,9 @@ alias ...="cd ..;cd ..;cd .."
 alias ....="cd ..;cd ..;cd ..;cd .."
 alias .....="cd ..;cd ..;cd ..;cd ..;cd .."
 alias ......="cd ..;cd ..;cd ..;cd ..;cd ..;cd .."
-alias ls="ls -laF --color=auto"
-alias lsh="ls -lahF --color=auto"
+alias ls="eza --total-size -l -b --git --icons -a -u -m  -h"
 lss(){
-    ls -lahF | grep "$1"
+    ls | grep "$1"
 }
 alias ns="netstat -tulpn"
 
@@ -86,6 +87,7 @@ setup-iptables(){
 
  # allow ssh from main pc
  sudo iptables -A INPUT --src 192.168.1.19 -p tcp --dport 22 -j ACCEPT
+ sudo iptables -A INPUT --src 192.168.1.19 -p tcp --dport 445 -j ACCEPT
  sudo iptables-save >> /etc/iptables/iptables.rules 
 }
 
