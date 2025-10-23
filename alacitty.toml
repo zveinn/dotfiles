@@ -16,7 +16,7 @@ bold.style = "Bold"
 italic.family = "Hurmit Nerd Font"
 italic.style = "Italic"
 offset.x = 1
-offset.y = -6
+offset.y = -10
 
 [colors.primary]
 background = "#000000"  # Pure black background
@@ -50,7 +50,7 @@ unfocused_hollow = true
 
 [[keyboard.bindings]]
 key = "C"
-mods = "Control"
+mods = "Control|Shift"
 action = "Copy"
 
 [[keyboard.bindings]]
