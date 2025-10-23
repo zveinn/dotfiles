@@ -63,7 +63,7 @@ alias ...="cd ..;cd ..;cd .."
 alias ....="cd ..;cd ..;cd ..;cd .."
 alias .....="cd ..;cd ..;cd ..;cd ..;cd .."
 alias ......="cd ..;cd ..;cd ..;cd ..;cd ..;cd .."
-alias ls="eza --total-size -l -b --git --icons -a -u -m  -h"
+alias ls="eza --total-size -l -b --git -a -u -m  -h"
 lss(){
     ls | grep "$1"
 }
