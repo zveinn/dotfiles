@@ -58,13 +58,8 @@ tmux_session_name() {
     fi
 }
 #export PS1='\n \033[0m$(whoami) [\033[32m$(tmux_session_name)\033[0m] \033[35m${PWD} \033[36m$(parse_git_branch)\033[0m \n '
-export PS1='\n\033[0m$(whoami) \033[34m💀 \033[32m$(tmux_session_name)\033[34m 💀 \033[0m${PWD}/\033[34m$(parse_git_branch)\033[0m >'
-
-# website server, it's fine to save this IP here
-alias web="ssh -i /home/sveinn/.ssh/1984 root@195.246.231.55"
-alias web-update="scp -r -i /home/sveinn/.ssh/1984 /home/sveinn/code/website/dist/* root@195.246.231.55:/var/www/web"
-alias web-update-dev="scp -r -i /home/sveinn/.ssh/1984 /home/sveinn/code/website-new/dist/* root@195.246.231.55:/var/www/dev"
-alias web-docs-update="scp -r -i /home/sveinn/.ssh/1984 /home/sveinn/code/tunnels-docs/build/client/* root@195.246.231.55:/var/www/docs"
+# export PS1='\n\033[0m$(whoami) \033[34m💀 \033[32m$(tmux_session_name)\033[34m 💀 \033[0m${PWD}/\033[34m$(parse_git_branch)\033[0m '
+export PS1='\n\033[0m$(whoami) \033[32m$(tmux_session_name) \033[0m${PWD}/\033[34m$(parse_git_branch)\033[0m '
 
 
 search_history(){
