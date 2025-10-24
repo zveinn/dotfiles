@@ -10,6 +10,27 @@ export GOPATH=~/go
 export COLORTERM=truecolor
 
 
+bind -x '"\C-r": __gistory'
+# __gistory() {
+#       local selected
+#       selected=$(/home/sveinn/code/tools/gistory/gistory)
+#       if [ -n "$selected" ]; then
+#           READLINE_LINE="$selected"
+#           READLINE_POINT=${#READLINE_LINE}
+#       fi
+# }
+# 
+__gistory() {
+      local selected
+      # selected=$(gistory)
+      selected=$(gistory)
+      if [ -n "$selected" ]; then
+          history -s "$selected"  # Add to history
+          eval "$selected"         # Execute immediately
+      fi
+  }
+
+
 
 
 source ~/.secrets/secrets.sh
@@ -179,7 +200,7 @@ setup-golang() {
 }
 
 setup-non-root() {
- 	sudo pacman -S git htop wget curl xclip tmux podman net-utils bind -y
+ 	sudo pacman -S git htop wget curl xclip tmux podman net-utils bind eza -y
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
  	curl -fsSL https://get.pnpm.io/install.sh | sh -
 	pnpm install -g typescript-language-server typescript
