@@ -5,6 +5,14 @@ auto-format = true
 comment-token = "//"
 language-servers = [ "gopls", "golangci-lint-lsp" ]
 
+[[language]]
+name = "c"
+language-servers = [ "clangd" ]
+
+[language-server.clangd]
+command = "clangd"
+args = ["--stdio"]
+
 [language-server.gopls.config]
 "formatting.gofumpt" = true
 

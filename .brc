@@ -10,7 +10,8 @@ export GOPATH=~/go
 export COLORTERM=truecolor
 
 
-bind -x '"\C-r": __gistory'
+#bind '"\C-r":reverse-search-history'
+ bind -x '"\C-r": __gistory'
 # __gistory() {
 #       local selected
 #       selected=$(/home/sveinn/code/tools/gistory/gistory)
@@ -21,6 +22,7 @@ bind -x '"\C-r": __gistory'
 # }
 # 
 __gistory() {
+			history -w
       local selected
       # selected=$(gistory)
       selected=$(gistory)
@@ -33,8 +35,7 @@ __gistory() {
 
 
 
-source ~/.secrets/secrets.sh
-#bind '"\C-r":reverse-search-history'
+source /home/sveinn/.secrets/secrets.sh
 
 function get_command_number() {
 	command_num=$(history | tail -n 1 | awk '{print $1}')
