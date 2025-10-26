@@ -63,10 +63,10 @@ tmux_session_name() {
 export PS1='\n\033[0m$(whoami) \033[32m$(tmux_session_name) \033[0m${PWD}/\033[34m$(parse_git_branch)\033[0m '
 
 
-search_history(){
+shist(){
 	history | grep $1
 }
-search_ps(){
+sps(){
 	ps aux | grep $1
 }
 
