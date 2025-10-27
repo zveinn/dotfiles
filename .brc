@@ -137,6 +137,7 @@ gBranch(){
 
 setup-repos(){
  git config --global --add url."git@github.com:".insteadOf "https://github.com/"
+ git config pull.rebase true
 
  git config --global user.name zveinn
  git config --global user.email info@sveinn.is
