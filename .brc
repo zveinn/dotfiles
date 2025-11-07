@@ -60,8 +60,9 @@ tmux_session_name() {
 }
 #export PS1='\n \033[0m$(whoami) [\033[32m$(tmux_session_name)\033[0m] \033[35m${PWD} \033[36m$(parse_git_branch)\033[0m \n '
 # export PS1='\n\033[0m$(whoami) \033[34m💀 \033[32m$(tmux_session_name)\033[34m 💀 \033[0m${PWD}/\033[34m$(parse_git_branch)\033[0m '
-export PS1='\n\033[0m$(whoami) \033[32m$(tmux_session_name) \033[0m${PWD}/\033[34m$(parse_git_branch)\033[0m '
-
+# export PS1='\n\033[0m$(whoami) \033[32m$(tmux_session_name) \033[0m${PWD}/\033[34m$(parse_git_branch)\033[0m '
+# export PS1='\n\[\033[0m\]$(whoami) \[\033[32m\]$(tmux_session_name)\[\033[0m\]${PWD}/\[\033[34m\]$(parse_git_branch)\[\033[0m\] '
+export PS1='💀 $(parse_git_branch) > '
 
 shist(){
 	history | grep $1
@@ -74,6 +75,8 @@ alias r="source /home/sveinn/code/dotfiles/.brc"
 alias rr="reset"
 alias c="clear"
 alias e="exit"
+alias p="pwd"
+alias u="whoami"
 alias .="cd .."
 alias ..="cd ..;cd .."
 alias ...="cd ..;cd ..;cd .."

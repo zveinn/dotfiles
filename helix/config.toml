@@ -21,11 +21,8 @@ f = ["select_all"]
 # this can't be remapped yet.
 #y = ["yank", "yank_to_clipboard"]
 
-
 [keys.insert]
 "esc" = ["normal_mode"] 
-
-
 
 #[keys.normal.space]
 [keys.normal.space]
@@ -79,9 +76,9 @@ space.space.q = [":write-quit-all" ]
 # go to implementation
 # file symbols s-0
 # workspace symbols .. s-p
-# 
 
 [editor]
+#clipboard-provider = "xclip"
 line-number = "relative"
 end-of-line-diagnostics = "hint" 
 #gutters = ["spacer", "diff","spacer"]
