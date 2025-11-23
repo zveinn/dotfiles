@@ -8,7 +8,7 @@ punctuation = "gentle_teal"         # Brackets, commas, etc.
 "punctuation.delimiter" = "muted_gray" # Semicolons, dots
 operator = "gentle_teal"           # +, -, ==, etc.
 special = "soft_blue"             # Special tokens
-"variable.other.member" = "soft_purple" # Struct fields
+"variable.other.member" = "soft_blue" # Struct fields
 variable = "muted_gray"            # Variables
 "variable.parameter" = { fg = "pure_white" } # Function parameters
 "variable.builtin" = "pure_white" # Built-in variables (e.g., nil, true)
@@ -19,7 +19,7 @@ function = "soft_blue"            # User-defined function/method calls in white
 "function.macro" = "soft_blue"   # Rare in Go, but for consistency
 "function.builtin" = "soft_blue"  # Built-in funcs (fmt.Printf, log.Println) in white
 tag = "gentle_teal"                # Tags (e.g., in struct literals)
-comment = "muted_gray"            # Comments
+comment = "light_gray"            # Comments
 constant = "soft_peach"            # Constants
 "constant.builtin" = "soft_peach"  # Built-in constants (iota)
 string = "lime_green"              # Strings
@@ -106,9 +106,11 @@ soft_blue = "#82AAFF"       # Struct fields, cursor
 golden_yellow = "#E5C07B"   # Types
 soft_orange = "#FFAB70"     # Operators, warnings
 bright_orange = "#FF8C42"   # Goto labels, breakpoints
+
 vivid_pink = "#FF79C6"      # Special tokens, jump labels
 muted_green = "#7A9A7A"     # Comments
 lime_green = "#95E19A"      # Strings
-soft_peach = "#FFCC99"      # Constants
+# soft_peach = "#FFCC99"      # Constants
+soft_peach = "#C792EA"     
 soft_cyan = "#89DDFF"       # Numbers, hints
 vivid_red = "#FF5555"
