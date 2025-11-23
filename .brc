@@ -61,11 +61,11 @@ tmux_session_name() {
 # export PS1='\n\[\033[0m\]$(whoami) \[\033[32m\]$(tmux_session_name)\[\033[0m\]${PWD}/\[\033[34m\]$(parse_git_branch)\[\033[0m\] '
 export PS1='💀 $(parse_git_branch) > '
 
-shist(){
-	history | grep $1
-}
-sps(){
+pss(){
 	ps aux | grep $1
+}
+lss(){
+    ls | grep "$1"
 }
 
 alias r="source /home/sveinn/code/dotfiles/.brc"
@@ -81,9 +81,6 @@ alias ....="cd ..;cd ..;cd ..;cd .."
 alias .....="cd ..;cd ..;cd ..;cd ..;cd .."
 alias ......="cd ..;cd ..;cd ..;cd ..;cd ..;cd .."
 alias ls="eza --total-size -l -b --git -a -u -m  -h"
-lss(){
-    ls | grep "$1"
-}
 alias ns="netstat -tulpn"
 
 alias ipt="sudo iptables $1"
@@ -96,7 +93,6 @@ setup-iptables(){
  sudo iptables -t nat -F
  sudo iptables -t mangle -F
 
-
  sudo iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
  sudo iptables -A INPUT --src 127.0.0.1 --dst 127.0.0.1 -j ACCEPT
 
@@ -104,9 +100,13 @@ setup-iptables(){
  sudo iptables -P FORWARD DROP
  sudo iptables -P OUTPUT ACCEPT
 
- # allow ssh from main pc
- sudo iptables -A INPUT --src 192.168.1.19 -p tcp --dport 22 -j ACCEPT
- sudo iptables -A INPUT --src 192.168.1.19 -p tcp --dport 445 -j ACCEPT
+ # allow ssh + file sharing for main pc
+ #sudo iptables -A INPUT --src 192.168.1.19 -p tcp --dport 22 -j ACCEPT
+ #sudo iptables -A INPUT --src 192.168.1.19 -p tcp --dport 445 -j ACCEPT
+
+ # npm dev stuff
+ #sudo iptables -A INPUT --src 192.168.1.19 -p tcp --dport 5173 -j ACCEPT
+ #sudo iptables -A INPUT --src 192.168.1.19 -p tcp --dport 5174 -j ACCEPT
  sudo iptables-save >> /etc/iptables/iptables.rules 
 }
 
@@ -133,7 +133,6 @@ gBranch(){
 	git branch $1
 	git checkout $1
 }
-
 
 setup-repos(){
  git config --global --add url."git@github.com:".insteadOf "https://github.com/"
@@ -228,9 +227,10 @@ setup-root(){
 }
 
 
-alias tn="zellij $1"
+alias tn="zellij -s $1"
 alias ta="zellij attach $1"
 alias tl="zellij list-sessions"
+alias tkd="zellij kill-session $1; zellij delete-session $1 --force"
 
 alias h="helix -c ~/code/dotfiles/helix/config.toml"
 
