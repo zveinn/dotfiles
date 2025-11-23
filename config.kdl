@@ -4,7 +4,7 @@ welcome_screen false
 simplified_ui false
 auto_layout false
 pane_frames true
-mouse_mode false
+mouse_mode true
 show_tips false
 
 scrollback_editor "/usr/bin/helix"
@@ -43,6 +43,7 @@ keybinds clear-defaults=true {
             }
             SwitchToMode "normal"
         }
+        bind "Alt x" { Detach; }
     }
     search {
         bind "c" { SearchToggleOption "CaseSensitivity"; }
@@ -60,6 +61,7 @@ keybinds clear-defaults=true {
     }
     session {
         bind "enter" { SwitchToMode "scroll"; }
+//        bind "Alt x" { WriteChars "\u0018"; }
     }
 }
 

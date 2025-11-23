@@ -11,7 +11,7 @@ export COLORTERM=truecolor
 
 
 #bind '"\C-r":reverse-search-history'
- bind -x '"\C-r": __gistory'
+bind '"\C-r": __gistory'
 # __gistory() {
 #       local selected
 #       selected=$(/home/sveinn/code/tools/gistory/gistory)
@@ -30,10 +30,7 @@ __gistory() {
           history -s "$selected"  # Add to history
           eval "$selected"         # Execute immediately
       fi
-  }
-
-
-
+}
 
 source /home/sveinn/.secrets/secrets.sh
 
@@ -231,14 +228,9 @@ setup-root(){
 }
 
 
-alias tn="tmux new -s $1"
-alias tr="tmux source /home/sveinn/code/dotfiles/.tmux.conf"
-alias td="tmux detach"
-alias ta="tmux attach -d -t $1"
-alias tl="tmux ls"
-alias tnw="tmux new-window;tmux rename-window $1"
-alias ts="tmux switch -t $1"
-alias tmoveleft="tmux swap-window -t 0"
+alias tn="zellij $1"
+alias ta="zellij attach $1"
+alias tl="zellij list-sessions"
 
 alias h="helix -c ~/code/dotfiles/helix/config.toml"
 

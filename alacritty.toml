@@ -3,20 +3,20 @@
 padding.x = 0
 padding.y = 0
 opacity = 1          # Slight transparency for modern look
-dynamic_padding = true  # Adjust padding dynamically
+dynamic_padding = false  # Adjust padding dynamically
 decorations = "Buttonless"  # Clean look without title bar buttons
 startup_mode = "Maximized"  # Start maximized for better usability
 
 [font]
-size = 12.0
+size = 14.0
 normal.family = "Hurmit Nerd Font Mono"
 normal.style = "Bold"
 bold.family = "Hurmit Nerd Font"
 bold.style = "Bold"
 italic.family = "Hurmit Nerd Font"
 italic.style = "Italic"
-offset.x = 1
-offset.y = -10
+offset.x = -1
+offset.y = -6
 
 [colors.primary]
 background = "#000000"  # Pure black background
