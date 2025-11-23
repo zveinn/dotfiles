@@ -1,26 +1,10 @@
 #!/bin/bash
-#
-# relavent folders (specific to zveinn)
-# ~/.github-feed
-# ~/.secrets
-
 export PATH=$PATH:/usr/local/go/bin:~/go/bin
 export PATH="$HOME/.local/bin:$PATH"
 export GOPATH=~/go
 export COLORTERM=truecolor
 
-
-#bind '"\C-r":reverse-search-history'
 bind '"\C-r": __gistory'
-# __gistory() {
-#       local selected
-#       selected=$(/home/sveinn/code/tools/gistory/gistory)
-#       if [ -n "$selected" ]; then
-#           READLINE_LINE="$selected"
-#           READLINE_POINT=${#READLINE_LINE}
-#       fi
-# }
-# 
 __gistory() {
 			history -w
       local selected
@@ -34,11 +18,6 @@ __gistory() {
 
 source /home/sveinn/.secrets/secrets.sh
 
-function get_command_number() {
-	command_num=$(history | tail -n 1 | awk '{print $1}')
-  echo $((command_num + 1))
-}
-
 alias golint="go install tool;gofumpt -w .;go generate ./...;pkill golangci; golangci-lint run --fix --build-tags kqueue --timeout=10m --config .golangci.yml"
 
 function parse_git_branch() {
@@ -50,15 +29,6 @@ function parse_git_branch() {
   fi
 }
 
-tmux_session_name() {
-    if [ -n "$TMUX" ]; then
-       echo $(tmux display-message -p '#S')
-    fi
-}
-#export PS1='\n \033[0m$(whoami) [\033[32m$(tmux_session_name)\033[0m] \033[35m${PWD} \033[36m$(parse_git_branch)\033[0m \n '
-# export PS1='\n\033[0m$(whoami) \033[34m💀 \033[32m$(tmux_session_name)\033[34m 💀 \033[0m${PWD}/\033[34m$(parse_git_branch)\033[0m '
-# export PS1='\n\033[0m$(whoami) \033[32m$(tmux_session_name) \033[0m${PWD}/\033[34m$(parse_git_branch)\033[0m '
-# export PS1='\n\[\033[0m\]$(whoami) \[\033[32m\]$(tmux_session_name)\[\033[0m\]${PWD}/\[\033[34m\]$(parse_git_branch)\[\033[0m\] '
 export PS1='💀 $(parse_git_branch) > '
 
 pss(){
