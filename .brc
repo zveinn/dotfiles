@@ -5,10 +5,12 @@ export GOPATH=~/go
 export COLORTERM=truecolor
 
 bind '"\C-r": __gistory'
+bind '"C-r": __gistory'
+
 __gistory() {
 			history -w
       local selected
-      # selected=$(gistory)
+      #selected=$(gistory)
       selected=$(gistory)
       if [ -n "$selected" ]; then
           history -s "$selected"  # Add to history
