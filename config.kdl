@@ -14,6 +14,7 @@ theme "ao"
 
 keybinds clear-defaults=true {
    normal {
+        bind "Alt Backspace" { SwitchToMode "Locked"; }
         bind "Alt !" { GoToTab 1; SwitchToMode "normal";}
         bind "Alt @" { GoToTab 2; SwitchToMode "normal"; }
         bind "Alt #" { GoToTab 3; SwitchToMode "normal"; }
@@ -44,6 +45,11 @@ keybinds clear-defaults=true {
             SwitchToMode "normal"
         }
         bind "Alt x" { Detach; }
+    }
+    locked {
+        bind "Alt Backspace" { 
+            SwitchToMode "Normal"; 
+        }
     }
     search {
         bind "c" { SearchToggleOption "CaseSensitivity"; }
