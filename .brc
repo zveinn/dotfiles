@@ -7,20 +7,17 @@ export PATH=$HOME/.opencode/bin:$PATH
 export GOPATH=~/go
 export COLORTERM=truecolor
 
-[[ $- == *i* ]] && bind '"\C-r": __gistory'
-# bind '"C-r": __gistory'
-alias f="__gistory"
-
 __gistory() {
-			history -w
-      local selected
-      #selected=$(gistory)
-      selected=$(gistory)
-      if [ -n "$selected" ]; then
-          history -s "$selected"  # Add to history
-          eval "$selected"         # Execute immediately
-      fi
+    history -w
+    local selected
+    selected=$(gistory)
+    if [ -n "$selected" ]; then
+        READLINE_LINE="$selected"
+        READLINE_POINT=${#READLINE_LINE}
+    fi
 }
+
+[[ $- == *i* ]] && bind -x '"\C-r": __gistory'
 
 source /home/sveinn/.secrets/secrets.sh
 
@@ -85,6 +82,7 @@ setup-iptables(){
  #sudo iptables -A INPUT --src 192.168.1.19 -p tcp --dport 5173 -j ACCEPT
  #sudo iptables -A INPUT --src 192.168.1.19 -p tcp --dport 5174 -j ACCEPT
  sudo iptables-save >> /etc/iptables/iptables.rules 
+ # TODO .. add systemctl command to enable perma tables
 }
 
 gx-pr() {
@@ -133,7 +131,8 @@ setup-repos(){
  git clone git@github.com:zveinn/ec ec-fork
 
  git clone git@github.com:zveinn/tools
- git clone git@github.com:zveinn/github-feek
+ git clone git@github.com:zveinn/github-feed
+ git clone git@github.com:zveinn/gistory
  git clone git@github.com:zveinn/hdnfs
  git clone git@github.com:zveinn/parser
  git clone git@github.com:zveinn/dplz
