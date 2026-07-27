@@ -43,7 +43,7 @@ function parse_git_branch() {
   fi
 }
 
-export PS1='\n\[\e[2;97m\]╭─\[\e[0m\] \[\e[97m\]\t\[\e[0m\] \[\e[2;97m\]·\[\e[0m\] \[\e[1;38;5;117m\]$(basename "$(dirname "$PWD")")/$(basename "$PWD")\[\e[0m\]$(parse_git_branch)\n\[\e[2;97m\]╰─\[\e[0m\]\[\e[38;5;208m\]❯\[\e[0m\] '
+export PS1='\n\[\e[2;97m\]╭─\[\e[0m\] \[\e[97m\]\t\[\e[0m\] \[\e[2;97m\]·\[\e[0m\] \[\e[1;38;5;117m\]$(basename "$(dirname "$PWD")")/$(basename "$PWD")\[\e[0m\]$(parse_git_branch)\n\[\e[2;97m\]╰─\[\e[0m\]\[\e[38;5;117m\]❯\[\e[0m\] '
 #export PS1='$(date) $(pwd) > $(parse_git_branch) > '
   
 pss(){
