@@ -38,15 +38,14 @@ alias golint="go install tool;gofumpt -w .;go generate ./...;pkill golangci; gol
 
 function parse_git_branch() {
   git_branch=$(git branch 2> /dev/null --show-current)
-  if [ $? -eq 0 ]; then
+  if [ -n "$git_branch" ]; then
     echo "$git_branch"
-  else
-    echo ""
   fi
 }
 
-export PS1='💀 $(parse_git_branch) > '
-
+export PS1='\t \[\e[97m\]| \[\e[38;5;117m\]$(basename "$(dirname "$PWD")")/$(basename "$PWD") \[\e[97m\]|\[\e[38;5;208m\] $(parse_git_branch)\[\e[97m\] |\[\e[0m\] '
+#export PS1='$(date) $(pwd) > $(parse_git_branch) > '
+  
 pss(){
 	ps aux | grep $1
 }
