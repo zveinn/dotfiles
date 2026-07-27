@@ -39,6 +39,8 @@ c = ["toggle_comments"]
 # n = ":sh echo %{buffer_name}"
 # x = ':sh /home/sveinn/.config/dotfiles/test/test %sh{pwd} %{cursor_line} %{cursor_column} %{buffer_name} %{language} %{selection_line_start} %{selection_line_end} %{selection}'
 b = ":echo %sh{git blame -L %{cursor_line},+1 %{buffer_name}}"
+2 = ":sh /usr/local/bin/code-analyzer %sh{pwd}/%{buffer_name} %{cursor_line}"
+1 = ":sh /usr/local/bin/code-analyzer scan %sh{pwd}"
 
 h = ":toggle inline-diagnostics.cursor-line hint disable"
 q = ["wclose"]

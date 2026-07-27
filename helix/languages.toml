@@ -107,3 +107,16 @@ language-servers = [ "vscode-css-language-server" ]
 formatter = { command = 'prettier', args = ["--parser", "css"] }
 auto-format = true
 
+[[language]]
+name = "rust"
+roots = ["Cargo.toml", "Cargo.lock"]
+language-servers = [ "rust-analyzer" ]
+formatter = { command = "rustfmt", args = ["--edition", "2021"] }
+auto-format = true
+
+[language-server.rust-analyzer.config]
+check = { command = "clippy" }
+cargo = { features = "all" }
+procMacro = { enable = true }
+inlayHints = { bindingModeHints = { enable = false }, closureReturnTypeHints = { enable = "with_block" } }
+

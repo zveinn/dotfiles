@@ -6,6 +6,8 @@ export PATH=$HOME/.opencode/bin:$PATH
 
 export GOPATH=~/go
 export COLORTERM=truecolor
+export CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1
+export NOTES_URL=http://geymsla.sveinn.is:6767
 
 __gistory() {
     history -w
@@ -17,7 +19,18 @@ __gistory() {
     fi
 }
 
+__bgistory() {
+    history -w
+    local selected
+    selected=$(gistory --bookmarks)
+    if [ -n "$selected" ]; then
+        READLINE_LINE="$selected"
+        READLINE_POINT=${#READLINE_LINE}
+    fi
+}
+
 [[ $- == *i* ]] && bind -x '"\C-r": __gistory'
+[[ $- == *i* ]] && bind -x '"\C-b": __bgistory'
 
 source /home/sveinn/.secrets/secrets.sh
 
@@ -203,7 +216,13 @@ setup-root(){
 }
 
 
-alias llm="claude --dangerously-skip-permissions"
+ll(){
+export CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1
+claude --dangerously-skip-permissions
+#agy --dangerously-skip-permissions
+}
+
+alias llm=ll
 alias tn="zellij -s $1"
 alias ta="zellij attach $1"
 alias ts="zellij action detach;zellij attach $1"
@@ -318,3 +337,14 @@ gd=38;5;203:\
 gi=38;5;73:\
 xx=38;5;67"
 
+source "$HOME/.cargo/env"
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/sveinn/.local/bin:$PATH"
+
+
+# >>> grok installer >>>
+export PATH="$HOME/.grok/bin:$PATH"
+[[ -r "$HOME/.grok/completions/bash/grok.bash" ]] && source "$HOME/.grok/completions/bash/grok.bash"
+# <<< grok installer <<<
