@@ -9,6 +9,24 @@ export COLORTERM=truecolor
 export CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1
 export NOTES_URL=http://geymsla.sveinn.is:6767
 
+source "$HOME/.cargo/env"
+export PATH="$HOME/.grok/bin:$PATH"
+
+# pnpm
+export PNPM_HOME="/home/sveinn/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+
+source /home/sveinn/.secrets/secrets.sh
+
+# Everything below is interactive-only: aliases, prompt, completions,
+# keybinds. Keeping them out of scripts and tool wrappers prevents
+# alias breakage (e.g. ls->eza) from leaking into non-interactive
+# shells.
+[[ $- != *i* ]] && return
+
 __gistory() {
     history -w
     local selected
@@ -32,7 +50,6 @@ __bgistory() {
 [[ $- == *i* ]] && bind -x '"\C-r": __gistory'
 [[ $- == *i* ]] && bind -x '"\C-b": __bgistory'
 
-source /home/sveinn/.secrets/secrets.sh
 
 alias golint="go install tool;gofumpt -w .;go generate ./...;pkill golangci; golangci-lint run --fix --build-tags kqueue --timeout=10m --config .golangci.yml"
 
@@ -293,12 +310,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# pnpm
-export PNPM_HOME="/home/sveinn/.local/share/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
 
 export EZA_COLORS="\
 di=38;5;67:\
@@ -336,14 +347,10 @@ gd=38;5;203:\
 gi=38;5;73:\
 xx=38;5;67"
 
-source "$HOME/.cargo/env"
 
 
-# Added by Antigravity CLI installer
-export PATH="/home/sveinn/.local/bin:$PATH"
 
 
-# >>> grok installer >>>
-export PATH="$HOME/.grok/bin:$PATH"
+# >>> grok installer >>> (PATH hoisted to the env block up top)
 [[ -r "$HOME/.grok/completions/bash/grok.bash" ]] && source "$HOME/.grok/completions/bash/grok.bash"
 # <<< grok installer <<<
