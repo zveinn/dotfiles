@@ -23,6 +23,7 @@ keybindings:
   focus-down: alt+j
   detach: alt+\
   fullscreen: alt+m
+  terminal-settings: alt+s
 
 sessions:
   1: { name: ec, key: F1 }
@@ -30,3 +31,5 @@ sessions:
   3: { name: tunnels, key: F3 }
   4: { name: crypto, key: F4 }
   5: { name: rmux, key: F5 }
+  6: { name: sssh, key: F6 }
+  7: { name: random, key: F7 }
