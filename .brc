@@ -82,9 +82,11 @@ alias ...="cd ..;cd ..;cd .."
 alias ....="cd ..;cd ..;cd ..;cd .."
 alias .....="cd ..;cd ..;cd ..;cd ..;cd .."
 alias ......="cd ..;cd ..;cd ..;cd ..;cd ..;cd .."
-alias ls="eza -l -b --git -a -u -m  -h"
-alias ls-size="eza --total-size -l -b --git -a -u -m  -h"
 alias ns="netstat -tulpn"
+
+alias ls="xls --sort MTIME  --columns PERMS,USER,GROUP,SIZE,NAME"
+alias ls-time="xls --columns BIRTH,MTIME,ATIME,CTIME,PERMS,USER,GROUP,SIZE,NAME"
+alias ls-all="xls --all"
 
 alias ipt="sudo iptables $1"
 alias ipta="sudo iptables -L --line-numbers -n"
