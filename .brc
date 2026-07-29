@@ -84,8 +84,9 @@ alias .....="cd ..;cd ..;cd ..;cd ..;cd .."
 alias ......="cd ..;cd ..;cd ..;cd ..;cd ..;cd .."
 alias ns="netstat -tulpn"
 
-alias ls="xls --sort MTIME  --columns PERMS,USER,GROUP,SIZE,NAME"
-alias ls-time="xls --columns BIRTH,MTIME,ATIME,CTIME,PERMS,USER,GROUP,SIZE,NAME"
+alias ls="xls --columns PERMS,USER,SIZE,NAME --noTable --noHeaders"
+alias ls-mod="xls --sort MTIME  --columns MTIME,PERMS,USER,SIZE,NAME --noTable --noHeaders"
+alias ls-time="xls --columns BIRTH,MTIME,ATIME,CTIME,PERMS,USER,SIZE,NAME"
 alias ls-all="xls --all"
 
 alias ipt="sudo iptables $1"
