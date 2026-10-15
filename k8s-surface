@@ -1,0 +1,176 @@
+#!/usr/bin/env bash
+# k8s-surface: show everything network-exposed in a Kubernetes cluster.
+#
+# Lists services (with ready endpoint counts), the NodePort map with node IPs,
+# LoadBalancer addresses, Ingresses, Gateway API objects when the CRDs exist,
+# pods on hostNetwork or with hostPorts, services with no ready backends, and,
+# for kind clusters, the ports Docker publishes to the host.
+#
+# Needs only bash and kubectl. No jq.
+#
+# Usage: k8s-surface [-c CONTEXT] [-n NAMESPACE] [--no-system] [--pods] [-h]
+set -euo pipefail
+
+CONTEXT=""
+NAMESPACE=""
+NO_SYSTEM=0
+SHOW_PODS=0
+
+usage() {
+  sed -n '2,12p' "$0" | sed 's/^# \{0,1\}//'
+  exit "${1:-0}"
+}
+
+while [ $# -gt 0 ]; do
+  case "$1" in
+    -c|--context)   CONTEXT="$2"; shift 2 ;;
+    -n|--namespace) NAMESPACE="$2"; shift 2 ;;
+    --no-system)    NO_SYSTEM=1; shift ;;
+    --pods)         SHOW_PODS=1; shift ;;
+    -h|--help)      usage 0 ;;
+    *) echo "unknown argument: $1" >&2; usage 2 ;;
+  esac
+done
+
+command -v kubectl >/dev/null || { echo "kubectl not found" >&2; exit 1; }
+
+K=(kubectl)
+[ -n "$CONTEXT" ] && K+=(--context "$CONTEXT")
+if [ -n "$NAMESPACE" ]; then SCOPE=(-n "$NAMESPACE"); else SCOPE=(-A); fi
+
+SYSTEM_NS='^(kube-system|kube-public|kube-node-lease)\b'
+filter_system() { if [ "$NO_SYSTEM" = 1 ]; then grep -Ev "$SYSTEM_NS" || true; else cat; fi; }
+
+if command -v column >/dev/null; then
+  table() { column -t -s $'\t'; }
+else
+  table() { tr '\t' ' '; }
+fi
+
+if [ -t 1 ]; then
+  BOLD=$'\e[1m'; DIM=$'\e[2m'; RESET=$'\e[0m'
+else
+  BOLD=""; DIM=""; RESET=""
+fi
+
+section() { printf '\n%s== %s ==%s\n' "$BOLD" "$1" "$RESET"; }
+note()    { printf '%s%s%s\n' "$DIM" "$1" "$RESET"; }
+
+have_resource() { "${K[@]}" api-resources --no-headers 2>/dev/null | awk '{print $1}' | grep -qx "$1"; }
+
+# ---------------------------------------------------------------- cluster
+section "Cluster"
+ctx=$("${K[@]}" config current-context 2>/dev/null || echo "?")
+[ -n "$CONTEXT" ] && ctx="$CONTEXT"
+server=$("${K[@]}" config view --minify -o go-template='{{(index .clusters 0).cluster.server}}' 2>/dev/null || echo "?")
+printf 'context: %s\nserver:  %s\n' "$ctx" "$server"
+
+# kubectl's own wide output already derives ROLES from the node-role labels.
+printf '\n'
+"${K[@]}" get nodes -o wide 2>/dev/null \
+  | awk 'NR==1 || $0 != "" {printf "%s\t%s\t%s\t%s\t%s\t%s\n", $1, $2, $3, $5, $6, $7}' \
+  | table \
+  || echo "(nodes not readable)"
+
+# Node IPs for the NodePort map: prefer ExternalIP, fall back to InternalIP.
+NODE_IPS=$("${K[@]}" get nodes -o go-template='{{range .items}}{{$ip := ""}}{{range .status.addresses}}{{if eq .type "ExternalIP"}}{{$ip = .address}}{{end}}{{end}}{{if not $ip}}{{range .status.addresses}}{{if eq .type "InternalIP"}}{{$ip = .address}}{{end}}{{end}}{{end}}{{$ip}} {{end}}' 2>/dev/null || true)
+
+# ------------------------------------------------------ ready endpoint counts
+# EndpointSlices carry the owning service in a label. Emit one line per ready
+# endpoint and count them in the shell; kubectl templates have no arithmetic.
+declare -A READY
+if have_resource endpointslices; then
+  while read -r count key; do
+    [ -z "$key" ] && continue
+    READY["$key"]=$count
+  done < <("${K[@]}" get endpointslices "${SCOPE[@]}" -o go-template='{{range .items}}{{$ns := .metadata.namespace}}{{$svc := index .metadata.labels "kubernetes.io/service-name"}}{{range .endpoints}}{{if .conditions.ready}}{{$ns}}/{{$svc}}{{"\n"}}{{end}}{{end}}{{end}}' 2>/dev/null | grep -v '/$' | sort | uniq -c | awk '{print $1, $2}' || true)
+fi
+
+# --------------------------------------------------------------- services
+section "Services"
+{
+  printf 'NAMESPACE\tNAME\tTYPE\tCLUSTER-IP\tEXTERNAL\tPORTS (name:port->target/proto [nodePort])\tREADY-EP\tSELECTOR\n'
+  "${K[@]}" get svc "${SCOPE[@]}" -o go-template='{{range .items}}{{.metadata.namespace}}{{"\t"}}{{.metadata.name}}{{"\t"}}{{.spec.type}}{{"\t"}}{{if .spec.clusterIP}}{{.spec.clusterIP}}{{else}}-{{end}}{{"\t"}}{{$ext := ""}}{{range .spec.externalIPs}}{{$ext = printf "%s%s," $ext .}}{{end}}{{range .status.loadBalancer.ingress}}{{if .ip}}{{$ext = printf "%s%s," $ext .ip}}{{end}}{{if .hostname}}{{$ext = printf "%s%s," $ext .hostname}}{{end}}{{end}}{{if .spec.externalName}}{{$ext = .spec.externalName}}{{end}}{{if $ext}}{{$ext}}{{else}}-{{end}}{{"\t"}}{{range .spec.ports}}{{if .name}}{{.name}}:{{end}}{{.port}}->{{.targetPort}}/{{.protocol}}{{if .nodePort}} [{{.nodePort}}]{{end}}{{"  "}}{{end}}{{"\t"}}{{"\t"}}{{$sel := ""}}{{range $k, $v := .spec.selector}}{{$sel = printf "%s%s=%s," $sel $k $v}}{{end}}{{if $sel}}{{$sel}}{{else}}-{{end}}{{"\n"}}{{end}}' 2>/dev/null \
+  | filter_system \
+  | while IFS=$'\t' read -r ns name type cip ext ports _blank sel; do
+      key="$ns/$name"
+      if [ "$type" = "ExternalName" ]; then ready="n/a"; else ready="${READY[$key]:-0}"; fi
+      printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' "$ns" "$name" "$type" "$cip" "${ext%,}" "$ports" "$ready" "${sel%,}"
+    done
+} | table
+
+# ------------------------------------------------------------- nodeports
+section "NodePort map (reachable on any node IP)"
+np=$("${K[@]}" get svc "${SCOPE[@]}" -o go-template='{{range .items}}{{$ns := .metadata.namespace}}{{$n := .metadata.name}}{{range .spec.ports}}{{if .nodePort}}{{.nodePort}}{{"\t"}}{{$ns}}/{{$n}}{{"\t"}}{{.port}}->{{.targetPort}}/{{.protocol}}{{"\n"}}{{end}}{{end}}{{end}}' 2>/dev/null | filter_system | sort -n || true)
+if [ -n "$np" ]; then
+  { printf 'NODEPORT\tSERVICE\tSVC-PORT->TARGET\n'; printf '%s\n' "$np"; } | table
+  [ -n "$NODE_IPS" ] && note "node IPs: $NODE_IPS"
+else
+  note "none"
+fi
+
+# --------------------------------------------------------- loadbalancers
+section "LoadBalancer services"
+lb=$("${K[@]}" get svc "${SCOPE[@]}" -o go-template='{{range .items}}{{if eq .spec.type "LoadBalancer"}}{{.metadata.namespace}}/{{.metadata.name}}{{"\t"}}{{$a := ""}}{{range .status.loadBalancer.ingress}}{{if .ip}}{{$a = printf "%s%s " $a .ip}}{{end}}{{if .hostname}}{{$a = printf "%s%s " $a .hostname}}{{end}}{{end}}{{if $a}}{{$a}}{{else}}<pending>{{end}}{{"\t"}}{{range .spec.ports}}{{.port}}/{{.protocol}} {{end}}{{"\n"}}{{end}}{{end}}' 2>/dev/null | filter_system || true)
+if [ -n "$lb" ]; then { printf 'SERVICE\tADDRESS\tPORTS\n'; printf '%s\n' "$lb"; } | table; else note "none"; fi
+
+# -------------------------------------------------------------- ingress
+section "Ingresses"
+if have_resource ingresses; then
+  ing=$("${K[@]}" get ingress "${SCOPE[@]}" -o go-template='{{range .items}}{{$ns := .metadata.namespace}}{{$n := .metadata.name}}{{$cls := .spec.ingressClassName}}{{$tls := ""}}{{range .spec.tls}}{{range .hosts}}{{$tls = printf "%s%s," $tls .}}{{end}}{{end}}{{$lb := ""}}{{range .status.loadBalancer.ingress}}{{if .ip}}{{$lb = printf "%s%s " $lb .ip}}{{end}}{{if .hostname}}{{$lb = printf "%s%s " $lb .hostname}}{{end}}{{end}}{{range .spec.rules}}{{$h := .host}}{{range .http.paths}}{{$ns}}/{{$n}}{{"\t"}}{{if $cls}}{{$cls}}{{else}}-{{end}}{{"\t"}}{{if $h}}{{$h}}{{else}}*{{end}}{{"\t"}}{{.path}}{{"\t"}}{{.backend.service.name}}:{{if .backend.service.port.number}}{{.backend.service.port.number}}{{else}}{{.backend.service.port.name}}{{end}}{{"\t"}}{{if $tls}}{{$tls}}{{else}}-{{end}}{{"\t"}}{{if $lb}}{{$lb}}{{else}}-{{end}}{{"\n"}}{{end}}{{end}}{{end}}' 2>/dev/null | filter_system || true)
+  if [ -n "$ing" ]; then { printf 'INGRESS\tCLASS\tHOST\tPATH\tBACKEND\tTLS-HOSTS\tADDRESS\n'; printf '%s\n' "$ing"; } | table; else note "none"; fi
+else
+  note "Ingress API not available"
+fi
+
+# ---------------------------------------------------------- gateway api
+section "Gateway API"
+if have_resource gateways; then
+  gw=$("${K[@]}" get gateways "${SCOPE[@]}" -o go-template='{{range .items}}{{$ns := .metadata.namespace}}{{$n := .metadata.name}}{{$cls := .spec.gatewayClassName}}{{$addr := ""}}{{range .status.addresses}}{{$addr = printf "%s%s " $addr .value}}{{end}}{{range .spec.listeners}}{{$ns}}/{{$n}}{{"\t"}}{{$cls}}{{"\t"}}{{.name}}{{"\t"}}{{.protocol}}:{{.port}}{{"\t"}}{{if .hostname}}{{.hostname}}{{else}}*{{end}}{{"\t"}}{{if $addr}}{{$addr}}{{else}}-{{end}}{{"\n"}}{{end}}{{end}}' 2>/dev/null | filter_system || true)
+  if [ -n "$gw" ]; then { printf 'GATEWAY\tCLASS\tLISTENER\tPROTO:PORT\tHOSTNAME\tADDRESS\n'; printf '%s\n' "$gw"; } | table; else note "no gateways"; fi
+  for kind in httproutes grpcroutes tlsroutes tcproutes udproutes; do
+    have_resource "$kind" || continue
+    rt=$("${K[@]}" get "$kind" "${SCOPE[@]}" -o go-template='{{range .items}}{{.metadata.namespace}}/{{.metadata.name}}{{"\t"}}{{$p := ""}}{{range .spec.parentRefs}}{{$p = printf "%s%s" $p .name}}{{if .sectionName}}{{$p = printf "%s:%s" $p .sectionName}}{{end}}{{$p = printf "%s " $p}}{{end}}{{$p}}{{"\t"}}{{$h := ""}}{{range .spec.hostnames}}{{$h = printf "%s%s " $h .}}{{end}}{{if $h}}{{$h}}{{else}}*{{end}}{{"\t"}}{{$b := ""}}{{range .spec.rules}}{{range .backendRefs}}{{$b = printf "%s%s" $b .name}}{{if .port}}{{$b = printf "%s:%v" $b .port}}{{end}}{{$b = printf "%s " $b}}{{end}}{{end}}{{if $b}}{{$b}}{{else}}-{{end}}{{"\n"}}{{end}}' 2>/dev/null | filter_system || true)
+    [ -z "$rt" ] && continue
+    printf '\n%s:\n' "$kind"
+    { printf 'ROUTE\tPARENT[:LISTENER]\tHOSTNAMES\tBACKENDS\n'; printf '%s\n' "$rt"; } | table
+  done
+else
+  note "Gateway API CRDs not installed"
+fi
+
+# ---------------------------------------------------- host network / ports
+section "Pods on hostNetwork or with hostPorts"
+hp=$("${K[@]}" get pods "${SCOPE[@]}" -o go-template='{{range .items}}{{$ns := .metadata.namespace}}{{$n := .metadata.name}}{{$node := .spec.nodeName}}{{if .spec.hostNetwork}}{{$ns}}/{{$n}}{{"\t"}}{{$node}}{{"\t"}}hostNetwork{{"\t"}}{{range .spec.containers}}{{range .ports}}{{.containerPort}}/{{.protocol}} {{end}}{{end}}{{"\n"}}{{end}}{{range .spec.containers}}{{range .ports}}{{if .hostPort}}{{$ns}}/{{$n}}{{"\t"}}{{$node}}{{"\t"}}hostPort{{"\t"}}{{.hostPort}}->{{.containerPort}}/{{.protocol}}{{"\n"}}{{end}}{{end}}{{end}}{{end}}' 2>/dev/null | filter_system || true)
+if [ -n "$hp" ]; then { printf 'POD\tNODE\tMODE\tPORTS\n'; printf '%s\n' "$hp"; } | table; else note "none"; fi
+
+# ------------------------------------------------- services with no backends
+section "Services with no ready endpoints"
+dead=$("${K[@]}" get svc "${SCOPE[@]}" -o go-template='{{range .items}}{{if ne .spec.type "ExternalName"}}{{.metadata.namespace}}{{"\t"}}{{.metadata.name}}{{"\t"}}{{.spec.type}}{{"\n"}}{{end}}{{end}}' 2>/dev/null | filter_system \
+  | while IFS=$'\t' read -r ns name type; do
+      [ -z "$name" ] && continue
+      [ "${READY[$ns/$name]:-0}" = 0 ] && printf '%s/%s\t%s\n' "$ns" "$name" "$type"
+    done || true)
+if [ -n "$dead" ]; then { printf 'SERVICE\tTYPE\n'; printf '%s\n' "$dead"; } | table; note "a Service with a selector but no ready pods behind it, or one that is intentionally selector-less"; else note "none"; fi
+
+# ------------------------------------------------------- declared ports
+if [ "$SHOW_PODS" = 1 ]; then
+  section "Container ports declared by pods"
+  {
+    printf 'POD\tCONTAINER\tPORTS\n'
+    "${K[@]}" get pods "${SCOPE[@]}" -o go-template='{{range .items}}{{$ns := .metadata.namespace}}{{$n := .metadata.name}}{{range .spec.containers}}{{if .ports}}{{$ns}}/{{$n}}{{"\t"}}{{.name}}{{"\t"}}{{range .ports}}{{if .name}}{{.name}}:{{end}}{{.containerPort}}/{{.protocol}} {{end}}{{"\n"}}{{end}}{{end}}{{end}}' 2>/dev/null | filter_system
+  } | table
+fi
+
+# ------------------------------------------------------------ kind extras
+if [[ "$ctx" == kind-* ]] && command -v docker >/dev/null; then
+  cluster="${ctx#kind-}"
+  section "kind: ports Docker publishes to this host (cluster '$cluster')"
+  out=$(docker port "${cluster}-control-plane" 2>/dev/null | sort -t: -k2 -n || true)
+  if [ -n "$out" ]; then
+    printf '%s\n' "$out" | sed 's/ -> /\t-> host /' | table
+    note "each line is <node port> -> <host address>; NodePorts above are reachable where they appear here"
+  else
+    note "could not read docker port mappings (is the docker socket accessible?)"
+  fi
+fi

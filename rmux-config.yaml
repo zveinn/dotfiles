@@ -4,6 +4,7 @@ start_dir: /home/sveinn/code
 scrollback_lines: 10000
 select_copy: true
 bar_position: top
+agent_finished: "#22FF22"
 
 terminal_envs:
   TERM: xterm-256color
@@ -24,6 +25,7 @@ keybindings:
   detach: alt+\
   fullscreen: alt+m
   terminal-settings: alt+s
+  next-finished: alt+a
 
 sessions:
   1: { name: ec, key: alt+1 }
@@ -33,3 +35,5 @@ sessions:
   5: { name: rmux, key: alt+5 }
   6: { name: sssh, key: alt+6 }
   7: { name: xls, key: F7 }
+
+
